@@ -272,6 +272,9 @@ public class RingProgressBar extends View{
                 break;
             case UNIT_TEXT_ALIGN_MODE_EN:
                 baseline -= fm_unit.descent * 2/3;
+                break;
+            default:
+                break;
         }
         canvas.drawText(unitText, mCenterX - textWidth / 2 + percentTextWidth, baseline, mPaint);
     }
@@ -340,14 +343,17 @@ public class RingProgressBar extends View{
                     }
                     mIsButtonTouched = false;
                     postInvalidate();
+                    break;
+                default:
+                    break;
             }
             if (mIsButtonTouched) {
                 return true;
             }
         }
-
         return super.onTouchEvent(event);
     }
+
 
     /**
      * 判断坐标是否在按钮中

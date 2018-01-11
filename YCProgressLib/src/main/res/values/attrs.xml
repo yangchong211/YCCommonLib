@@ -50,4 +50,10 @@
         <attr name="buttonTopOffset" format="dimension" />
     </declare-styleable>
 
+
+    <declare-styleable name="CircleProgressbar">
+        <!--颜色-->
+        <attr name="circle_color" format="color" />
+    </declare-styleable>
+
 </resources>
