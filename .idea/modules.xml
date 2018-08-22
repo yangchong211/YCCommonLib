@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/YCProgress.iml" filepath="$PROJECT_DIR$/YCProgress.iml" />
+      <module fileurl="file://D:\GitHub\YCProgress\YCProgress.iml" filepath="D:\GitHub\YCProgress\YCProgress.iml" />
       <module fileurl="file://$PROJECT_DIR$/YCProgressLib/YCProgressLib.iml" filepath="$PROJECT_DIR$/YCProgressLib/YCProgressLib.iml" />
+      <module fileurl="file://D:\GitHub\YCProgress\YCProgressLib\YCProgressLib.iml" filepath="D:\GitHub\YCProgress\YCProgressLib\YCProgressLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\GitHub\YCProgress\app\app.iml" filepath="D:\GitHub\YCProgress\app\app.iml" />
     </modules>
   </component>
 </project>
