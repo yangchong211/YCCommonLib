@@ -10,9 +10,16 @@ import com.ns.yc.ycprogresslib.RingProgressBar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 /**
- * 博客地址
- * https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650821214&idx=1&sn=d0c120c9dc21669c7acac9c250991e3c&chksm=80b786c0b7c00fd62c7be336df91885614e0184b153350602bcd1ff39618d6d80cc7a6999e20&mpshare=1&scene=23&srcid=0630qVgVu8maUKvxvz5GPHCk#rd
+ * <pre>
+ *     @author 杨充
+ *     blog  :
+ *     time  : 2016/2/10
+ *     desc  : 自定义进度条，新芽，沙丘大学下载进度条
+ *     revise: 参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
+ *             案例地址：https://github.com/yangchong211
+ * </pre>
  */
 public class FirstActivity extends AppCompatActivity {
 

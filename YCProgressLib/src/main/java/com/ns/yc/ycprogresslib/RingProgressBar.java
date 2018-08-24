@@ -17,17 +17,19 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+
 /**
- * ================================================
- * 作    者：杨充
- * 版    本：1.0
- * 创建日期：2017/6/18
- * 描    述：自定义进度条
- * 修订历史：参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
- * ================================================
+ * <pre>
+ *     @author 杨充
+ *     blog  :
+ *     time  : 2016/2/10
+ *     desc  : 自定义进度条，新芽，沙丘大学下载进度条
+ *     revise: 参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
+ *             案例地址：https://github.com/yangchong211
+ * </pre>
  */
 @SuppressWarnings("unused")
-public class RingProgressBar extends View{
+public class RingProgressBar extends View {
 
     private int progress;                       //当前进度
     private int percent;                        //当前百分比

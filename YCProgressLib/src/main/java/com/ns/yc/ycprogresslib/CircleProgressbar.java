@@ -14,13 +14,14 @@ import android.util.AttributeSet;
 
 
 /**
- * ================================================
- * 作    者：杨充
- * 版    本：1.0
- * 创建日期：2017/6/18
- * 描    述：自定义进度条，沙丘大学下载进度条
- * 修订历史：参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
- * ================================================
+ * <pre>
+ *     @author 杨充
+ *     blog  :
+ *     time  : 2016/2/10
+ *     desc  : 自定义进度条，新芽，沙丘大学下载进度条
+ *     revise: 参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
+ *             案例地址：https://github.com/yangchong211
+ * </pre>
  */
 public class CircleProgressbar extends AppCompatTextView {
 
@@ -103,7 +104,7 @@ public class CircleProgressbar extends AppCompatTextView {
     /**
      * 进度倒计时时间。
      */
-    private long timeMillis = 3000;
+    private long timeMillis = 0;
 
     /**
      * View的显示区域。
@@ -203,6 +204,7 @@ public class CircleProgressbar extends AppCompatTextView {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
+        //是否需要更新圆的颜色
         validateCircleColor();
     }
 
@@ -228,7 +230,11 @@ public class CircleProgressbar extends AppCompatTextView {
                     mCountdownProgressListener.onProgress(listenerWhat, progress);
                 }
                 invalidate();
-                postDelayed(progressChangeTask, timeMillis / 100);
+                if (timeMillis==0){
+                    postDelayed(progressChangeTask, 500);
+                }else {
+                    postDelayed(progressChangeTask, timeMillis / 100);
+                }
             } else{
                 progress = validateProgress(progress);
             }

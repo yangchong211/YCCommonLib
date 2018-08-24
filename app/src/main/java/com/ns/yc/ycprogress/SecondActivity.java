@@ -7,10 +7,17 @@ import android.widget.Button;
 
 import com.ns.yc.ycprogresslib.CircleProgressbar;
 
-/**
- * Created by yc on 2018/1/11.
- */
 
+/**
+ * <pre>
+ *     @author 杨充
+ *     blog  :
+ *     time  : 2016/2/10
+ *     desc  : 自定义进度条，新芽，沙丘大学下载进度条
+ *     revise: 参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
+ *             案例地址：https://github.com/yangchong211
+ * </pre>
+ */
 public class SecondActivity extends AppCompatActivity {
 
     private CircleProgressbar pb_1;
@@ -47,7 +54,7 @@ public class SecondActivity extends AppCompatActivity {
         //设置类型
         pb_2.setProgressType(CircleProgressbar.ProgressType.COUNT);
         pb_2.setOutLineColor(getResources().getColor(R.color.grayLine));
-        pb_2.setCountdownProgressListener(1, progressListener);
+        pb_2.setCountdownProgressListener(2, progressListener);
         pb_2.setOutLineWidth(2);
         pb_2.setProgressLineWidth(5);
         pb_2.setProgress(30);
