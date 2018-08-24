@@ -44,5 +44,5 @@ pb.setTimeMillis(3000);
 - v1.2.5 更新于2018年8月24日
 
 ### 4.关于效果图展示
-- ![image]()
-- ![image]()
+- ![image](https://github.com/yangchong211/YCProgress/blob/master/image/Screenshot_20180824-095050.png)
+- ![image](https://github.com/yangchong211/YCProgress/blob/master/image/Screenshot_20180824-095229.png)
