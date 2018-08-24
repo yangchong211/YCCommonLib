@@ -59,7 +59,6 @@ public class SecondActivity extends AppCompatActivity {
         pb_2.setProgress(30);
         pb_1.setTimeMillis(5000);
 
-
         btn_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
