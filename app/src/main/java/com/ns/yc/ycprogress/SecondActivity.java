@@ -50,7 +50,6 @@ public class SecondActivity extends AppCompatActivity {
         pb_1.setProgress(60);
         pb_1.setTimeMillis(3000);
 
-
         //设置类型
         pb_2.setProgressType(CircleProgressbar.ProgressType.COUNT);
         pb_2.setOutLineColor(getResources().getColor(R.color.grayLine));
