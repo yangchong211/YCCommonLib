@@ -25,6 +25,13 @@ import android.util.AttributeSet;
  */
 public class CircleProgressbar extends AppCompatTextView {
 
+    /*
+     * invalidate() postInvalidate()
+     *      共同点：都是调用onDraw()方法，然后去达到重绘view的目的
+     *      区别：invalidate()用于主线程，postInvalidate()用于子线程
+     * requestLayout()
+     *      也可以达到重绘view的目的，但是与前两者不同，它会先调用onLayout()重新排版，再调用ondraw()方法。
+     */
 
     /**
      * 进度条类型。
