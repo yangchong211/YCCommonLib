@@ -2,9 +2,11 @@ package com.ns.yc.ycprogress;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ns.yc.ycprogresslib.ProgressBarUtils;
 import com.ns.yc.ycprogresslib.RingProgressBar;
 
 import java.util.Timer;
@@ -21,19 +23,31 @@ import java.util.TimerTask;
  *             案例地址：https://github.com/yangchong211
  * </pre>
  */
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private RingProgressBar bar_percent;
     private RingProgressBar bar_null;
     private RingProgressBar bar_all;
 
-    private boolean isProgressGoing;
-    private int max;
-    private int progress;
 
-    private Timer mTimer;
-    private TimerTask mTimerTask;
+    private int max;
+    private int progress1;
+    private boolean isProgressGoing1;
+    private Timer mTimer1;
+    private TimerTask mTimerTask1;
+
+    private int progress2;
+    private boolean isProgressGoing2;
+    private Timer mTimer2;
+    private TimerTask mTimerTask2;
+
+
+    private int progress3;
+    private boolean isProgressGoing3;
+    private Timer mTimer3;
+    private TimerTask mTimerTask3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,96 +57,240 @@ public class FirstActivity extends AppCompatActivity {
     }
 
     private void init() {
-        initData();
-        initView();
-    }
-
-
-    private void initData() {
         max = 100;
-        readyProgress();
+        initBarPercent();
+        initBarNull();
+        initBarAll();
+
+        findViewById(R.id.btn_11).setOnClickListener(this);
+        findViewById(R.id.btn_12).setOnClickListener(this);
+        findViewById(R.id.btn_21).setOnClickListener(this);
+        findViewById(R.id.btn_21).setOnClickListener(this);
+        findViewById(R.id.btn_31).setOnClickListener(this);
+        findViewById(R.id.btn_32).setOnClickListener(this);
     }
 
 
-    private void initView() {
-        bar_percent = (RingProgressBar) findViewById(R.id.bar_percent);
-        bar_null = (RingProgressBar) findViewById(R.id.bar_null);
-        bar_all = (RingProgressBar) findViewById(R.id.bar_all);
-
-        bar_percent.setProgress(65);
-        bar_null.setProgress(89);
-
-        bar_all.setProgressMax(max);
-        bar_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(FirstActivity.this, "进度条被点击", Toast.LENGTH_SHORT).show();
-            }
-        });
-        bar_all.setOnButtonClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isProgressGoing) {
-                    if (progress == max) {
-                        progress = 0;
-                        bar_all.setProgress(progress);
-                    }
-                    startProgress();
-                } else {
-                    stopProgress();
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_11:
+                if (progress1==100){
+                    stopProgress1();
+                    progress1 = 0;
                 }
-
-            }
-        });
-
+                startProgress1();
+                break;
+            case R.id.btn_12:
+                stopProgress1();
+                break;
+            case R.id.btn_21:
+                if (progress2==100){
+                    stopProgress2();
+                    progress2 = 0;
+                }
+                startProgress2();
+                break;
+            case R.id.btn_22:
+                stopProgress2();
+                break;
+            case R.id.btn_31:
+                if (progress3==100){
+                    stopProgress3();
+                    progress3 = 0;
+                }
+                startProgress3();
+                break;
+            case R.id.btn_32:
+                stopProgress3();
+                break;
+        }
     }
 
 
-    private void readyProgress() {
-        if (mTimer == null) {
-            mTimer = new Timer();
+
+    private void initBarPercent() {
+        bar_percent = (RingProgressBar) findViewById(R.id.bar_percent);
+        //设置进度
+        bar_percent.setProgress(0);
+        //设置更新进度条颜色
+        bar_percent.setDotColor(this.getResources().getColor(R.color.colorAccent));
+        //设置未更新部分的进度条颜色
+        bar_percent.setDotBgColor(this.getResources().getColor(R.color.blackText));
+        //设置百分比文字颜色
+        bar_percent.setPercentTextColor(this.getResources().getColor(R.color.blackText1));
+        //设置百分比文字大小
+        bar_percent.setPercentTextSize(ProgressBarUtils.dp2px(this,16.0f));
+        //设置展示的类型
+        bar_percent.setShowMode(ProgressBarUtils.RingShowMode.SHOW_MODE_PERCENT);
+        //设置单位的文字内容
+        bar_percent.setUnitText("%");
+        //设置单位的文字大小
+        bar_percent.setUnitTextSize(ProgressBarUtils.dp2px(this,16.0f));
+        //设置单位的文字颜色
+        bar_percent.setUnitTextColor(this.getResources().getColor(R.color.blackText1));
+    }
+
+    private void readyProgress1() {
+        if (mTimer1 == null) {
+            mTimer1 = new Timer();
         }
-        if (mTimerTask == null) {
-            mTimerTask = new TimerTask() {
+        if (mTimerTask1 == null) {
+            mTimerTask1 = new TimerTask() {
                 @Override
                 public void run() {
-                    if (!isProgressGoing) {
+                    if (!isProgressGoing1) {
                         return;
                     }
-                    if (++progress >= max) {
-                        progress = max;
-                        bar_all.setProgress(progress);
-                        stopProgress();
+                    if (++progress1 >= max) {
+                        progress1 = max;
+                        bar_percent.setProgress(progress1);
+                        stopProgress1();
                         return;
                     }
-                    bar_all.setProgress(progress);
+                    bar_percent.setProgress(progress1);
                 }
             };
         }
     }
 
-    private void startProgress() {
-        isProgressGoing = true;
-
-        stopTimerTask();
-        readyProgress();
-        mTimer.schedule(mTimerTask, 1000, 100);
+    private void startProgress1() {
+        isProgressGoing1 = true;
+        stopTimerTask1();
+        readyProgress1();
+        mTimer1.schedule(mTimerTask1, 1000, 100);
     }
 
-    private void stopTimerTask() {
-        if (mTimerTask != null) {
-            mTimerTask.cancel();
+    private void stopTimerTask1() {
+        if (mTimerTask1 != null) {
+            mTimerTask1.cancel();
         }
-        if (mTimer != null) {
-            mTimer.cancel();
+        if (mTimer1 != null) {
+            mTimer1.cancel();
         }
-        mTimerTask = null;
-        mTimer = null;
+        mTimerTask1 = null;
+        mTimer1 = null;
     }
 
-    private void stopProgress() {
-        isProgressGoing = false;
-        stopTimerTask();
+    private void stopProgress1() {
+        isProgressGoing1 = false;
+        stopTimerTask1();
+    }
+
+
+
+
+
+    private void initBarNull() {
+        bar_null = (RingProgressBar) findViewById(R.id.bar_null);
+        bar_null.setProgress(89);
+        bar_null.setPercentTextColor(this.getResources().getColor(R.color.redTab));
+        bar_null.setUnitTextColor(this.getResources().getColor(R.color.redTab));
+    }
+
+    private void readyProgress2() {
+        if (mTimer2 == null) {
+            mTimer2 = new Timer();
+        }
+        if (mTimerTask2 == null) {
+            mTimerTask2 = new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isProgressGoing2) {
+                        return;
+                    }
+                    if (++progress2 >= max) {
+                        progress2 = max;
+                        bar_null.setProgress(progress2);
+                        stopProgress2();
+                        return;
+                    }
+                    bar_null.setProgress(progress2);
+                }
+            };
+        }
+    }
+
+    private void startProgress2() {
+        isProgressGoing2 = true;
+        stopTimerTask2();
+        readyProgress2();
+        mTimer2.schedule(mTimerTask2, 1000, 100);
+    }
+
+    private void stopTimerTask2() {
+        if (mTimerTask2 != null) {
+            mTimerTask2.cancel();
+        }
+        if (mTimer2 != null) {
+            mTimer2.cancel();
+        }
+        mTimerTask2 = null;
+        mTimer2 = null;
+    }
+
+    private void stopProgress2() {
+        isProgressGoing2 = false;
+        stopTimerTask2();
+    }
+
+
+
+
+    private void initBarAll() {
+        bar_all = (RingProgressBar) findViewById(R.id.bar_all);
+        bar_all.setProgressMax(max);
+        bar_all.setPercentTextColor(this.getResources().getColor(R.color.colorPrimary));
+        bar_all.setUnitTextColor(this.getResources().getColor(R.color.colorPrimary));
+        bar_all.setPercentTextSize(ProgressBarUtils.dp2px(this,30.0f));
+        bar_all.setUnitTextSize(ProgressBarUtils.dp2px(this,16.0f));
+    }
+
+
+    private void readyProgress3() {
+        if (mTimer3 == null) {
+            mTimer3 = new Timer();
+        }
+        if (mTimerTask3 == null) {
+            mTimerTask3 = new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isProgressGoing3) {
+                        return;
+                    }
+                    if (++progress3 >= max) {
+                        progress3 = max;
+                        bar_all.setProgress(progress3);
+                        stopProgress3();
+                        return;
+                    }
+                    bar_all.setProgress(progress3);
+                }
+            };
+        }
+    }
+
+    private void startProgress3() {
+        isProgressGoing3 = true;
+        stopTimerTask3();
+        readyProgress3();
+        mTimer3.schedule(mTimerTask3, 1000, 100);
+    }
+
+    private void stopTimerTask3() {
+        if (mTimerTask3 != null) {
+            mTimerTask3.cancel();
+        }
+        if (mTimer3 != null) {
+            mTimer3.cancel();
+        }
+        mTimerTask3 = null;
+        mTimer3 = null;
+    }
+
+    private void stopProgress3() {
+        isProgressGoing3 = false;
+        stopTimerTask3();
     }
 
 

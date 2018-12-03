@@ -1,11 +1,14 @@
 package com.ns.yc.ycprogress;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.ns.yc.ycprogresslib.CircleProgressbar;
+import com.ns.yc.ycprogresslib.OnCircleProgressListener;
+import com.ns.yc.ycprogresslib.ProgressBarUtils;
 
 
 /**
@@ -41,23 +44,35 @@ public class SecondActivity extends AppCompatActivity {
         pb_2 = (CircleProgressbar) findViewById(R.id.pb_2);
 
         //设置类型
-        pb_1.setProgressType(CircleProgressbar.ProgressType.COUNT);
+        pb_1.setProgressType(ProgressBarUtils.ProgressType.COUNT);
+        //设置圆形的填充颜色
         pb_1.setInCircleColor(getResources().getColor(R.color.redTab));
+        //设置外部轮廓的颜色
         pb_1.setOutLineColor(getResources().getColor(R.color.grayLine));
+        //设置进度监听
         pb_1.setCountdownProgressListener(1, progressListener);
+        //设置外部轮廓的颜色
         pb_1.setOutLineWidth(2);
+        //设置进度条线的宽度
         pb_1.setProgressLineWidth(5);
+        //设置进度
         pb_1.setProgress(60);
+        //设置倒计时总时间
         pb_1.setTimeMillis(3000);
+        //设置进度条颜色
+        pb_1.setProgressColor(getResources().getColor(R.color.colorPrimary));
+
+
 
         //设置类型
-        pb_2.setProgressType(CircleProgressbar.ProgressType.COUNT);
-        pb_2.setOutLineColor(getResources().getColor(R.color.grayLine));
+        pb_2.setProgressType(ProgressBarUtils.ProgressType.COUNT);
+        pb_2.setInCircleColor(Color.RED);
+        pb_2.setOutLineColor(Color.YELLOW);
         pb_2.setCountdownProgressListener(2, progressListener);
         pb_2.setOutLineWidth(2);
         pb_2.setProgressLineWidth(5);
         pb_2.setProgress(30);
-        pb_1.setTimeMillis(5000);
+        pb_2.setTimeMillis(5000);
 
         btn_0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +98,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-    private CircleProgressbar.OnCountdownProgressListener progressListener = new CircleProgressbar.OnCountdownProgressListener() {
+    private OnCircleProgressListener progressListener = new OnCircleProgressListener() {
         @Override
         public void onProgress(int what, int progress) {
             if (what == 1) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <declare-styleable name="RingProgressBar">
         <attr name="progressMax" format="integer" />
         <!--完成进度点的颜色-->
@@ -21,8 +20,6 @@
         <!--显示的百分比-->
         <attr name="percentTextSize" format="dimension" />
         <attr name="percentTextColor" format="color" />
-        <!--百分比使用系统字体，默认为false(使用外部导入字体assets/fonts/HelveticaNeueLTPro.ttf)-->
-        <attr name="isPercentFontSystem" format="boolean" />
         <!--百分比瘦身大小-->
         <attr name="percentThinPadding" format="integer" />
 
@@ -39,15 +36,6 @@
             <!--英文对齐：主要针对底部长的字母或字符，如：g、j、p、q、y、$、@等，其他几乎字母或字符都可以使用默认对齐-->
             <enum name="EN" value="2" />
         </attr>
-
-        <!--按钮-->
-        <attr name="buttonText" format="string" />
-        <attr name="buttonTextSize" format="dimension" />
-        <attr name="buttonTextColor" format="color" />
-        <attr name="buttonBgColor" format="color" />
-        <attr name="buttonClickColor" format="color" />
-        <attr name="buttonClickBgColor" format="color" />
-        <attr name="buttonTopOffset" format="dimension" />
     </declare-styleable>
 
 
@@ -56,4 +44,21 @@
         <attr name="circle_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="NumberProgressbar">
+        <attr name="progress_current" format="integer"/>
+        <attr name="progress_max" format="integer"/>
+
+        <attr name="progress_unreached_color" format="color"/>
+        <attr name="progress_reached_color" format="color"/>
+        <attr name="progress_reached_bar_height" format="dimension"/>
+        <attr name="progress_unreached_bar_height" format="dimension"/>
+
+        <attr name="progress_text_size" format="dimension"/>
+        <attr name="progress_text_color" format="color"/>
+        <attr name="progress_text_offset" format="dimension"/>
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

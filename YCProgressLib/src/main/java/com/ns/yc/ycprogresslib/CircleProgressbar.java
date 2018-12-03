@@ -16,7 +16,7 @@ import android.util.AttributeSet;
 /**
  * <pre>
  *     @author 杨充
- *     blog  :
+ *     blog  : https://github.com/yangchong211
  *     time  : 2016/2/10
  *     desc  : 自定义进度条，新芽，沙丘大学下载进度条
  *     revise: 参考案例：夏安明博客http://blog.csdn.net/xiaanming/article/details/10298163
@@ -32,34 +32,6 @@ public class CircleProgressbar extends AppCompatTextView {
      * requestLayout()
      *      也可以达到重绘view的目的，但是与前两者不同，它会先调用onLayout()重新排版，再调用ondraw()方法。
      */
-
-    /**
-     * 进度条类型。
-     */
-    public enum ProgressType {
-        /**
-         * 顺数进度条，从0-100；
-         */
-        COUNT,
-
-        /**
-         * 倒数进度条，从100-0；
-         */
-        COUNT_BACK;
-    }
-
-    /**
-     * 进度监听。
-     */
-    public interface OnCountdownProgressListener {
-
-        /**
-         * 进度通知。
-         *
-         * @param progress 进度值。
-         */
-        void onProgress(int what, int progress);
-    }
 
     /**
      * 外部轮廓的颜色。
@@ -107,7 +79,7 @@ public class CircleProgressbar extends AppCompatTextView {
     /**
      * 进度条类型。
      */
-    private ProgressType mProgressType = ProgressType.COUNT_BACK;
+    private int mProgressType = ProgressBarUtils.ProgressType.COUNT_BACK;
     /**
      * 进度倒计时时间。
      */
@@ -120,7 +92,7 @@ public class CircleProgressbar extends AppCompatTextView {
     /**
      * 进度条通知。
      */
-    private OnCountdownProgressListener mCountdownProgressListener;
+    private OnCircleProgressListener mCountdownProgressListener;
     /**
      * Listener what。
      */
@@ -223,10 +195,10 @@ public class CircleProgressbar extends AppCompatTextView {
         public void run() {
             removeCallbacks(this);
             switch (mProgressType) {
-                case COUNT:
+                case ProgressBarUtils.ProgressType.COUNT:
                     progress += 1;
                     break;
-                case COUNT_BACK:
+                case ProgressBarUtils.ProgressType.COUNT_BACK:
                     progress -= 1;
                     break;
                 default:
@@ -366,9 +338,9 @@ public class CircleProgressbar extends AppCompatTextView {
     /**
      * 设置进度条类型。
      *
-     * @param progressType {@link ProgressType}.
+     * @param progressType {@link ProgressBarUtils.ProgressType}.
      */
-    public void setProgressType(ProgressType progressType) {
+    public void setProgressType(@ProgressBarUtils.CircleProgressType int progressType) {
         this.mProgressType = progressType;
         resetProgress();
         invalidate();
@@ -379,10 +351,10 @@ public class CircleProgressbar extends AppCompatTextView {
      */
     private void resetProgress() {
         switch (mProgressType) {
-            case COUNT:
+            case ProgressBarUtils.ProgressType.COUNT:
                 progress = 0;
                 break;
-            case COUNT_BACK:
+            case ProgressBarUtils.ProgressType.COUNT_BACK:
                 progress = 100;
                 break;
             default:
@@ -395,7 +367,7 @@ public class CircleProgressbar extends AppCompatTextView {
      *
      * @return                          返回类型
      */
-    public ProgressType getProgressType() {
+    public int getProgressType() {
         return mProgressType;
     }
 
@@ -404,7 +376,7 @@ public class CircleProgressbar extends AppCompatTextView {
      *
      * @param mCountdownProgressListener 监听器。
      */
-    public void setCountdownProgressListener(int what, OnCountdownProgressListener mCountdownProgressListener) {
+    public void setCountdownProgressListener(int what, OnCircleProgressListener mCountdownProgressListener) {
         this.listenerWhat = what;
         this.mCountdownProgressListener = mCountdownProgressListener;
     }
@@ -432,6 +404,15 @@ public class CircleProgressbar extends AppCompatTextView {
         if(progressChangeTask!=null){
             removeCallbacks(progressChangeTask);
         }
+    }
+
+    /**
+     * 当自定义控件销毁时，则调用该方法
+     */
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stop();
     }
 
 

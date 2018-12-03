@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="left|center"
         android:layout_marginTop="10dp"
-        android:text="1.下载圆形进度条自定义控件"/>
+        android:text="2.下载圆形百分比进度条自定义控件"/>
 
 
     <Button
@@ -32,14 +32,8 @@
         android:layout_height="wrap_content"
         android:gravity="left|center"
         android:layout_marginTop="10dp"
-        android:text="1.线程是否安全测试,否"/>
+        android:text="3.直线百分比进度条自定义控件"/>
 
-    <Button
-        android:id="@+id/btn_4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left|center"
-        android:layout_marginTop="10dp"
-        android:text="1.线程是否安全测试，是"/>
+
 
 </LinearLayout>
