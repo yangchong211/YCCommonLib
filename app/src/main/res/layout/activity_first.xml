@@ -51,7 +51,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="空显示模式"/>
+            android:text="显示:百分比+单位"/>
         <Button
             android:id="@+id/btn_21"
             android:layout_width="wrap_content"
