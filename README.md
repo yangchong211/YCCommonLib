@@ -196,6 +196,7 @@
 
 
 
+
 ### 3.Pay attention to key points
 - 3.1 Whether it is a circular progress bar or a straight progress bar, when calling setProgress to set the progress, the function of verifying progress is added. Because if the value is set above 100 or less than 0, the method works!
     ```
