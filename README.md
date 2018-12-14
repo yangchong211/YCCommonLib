@@ -33,8 +33,9 @@
 
 
 #### 0.3 About language
-- [Chinese中文文档]()
-- [English英文文档]()
+- [Chinese中文文档](https://github.com/yangchong211/YCProgress/blob/master/README_CH.md)
+- [English英文文档](https://github.com/yangchong211/YCProgress/blob/master/README.md)
+
 
 #### 04 Case demonstration animation
 - ![image](https://github.com/yangchong211/YCProgress/blob/master/image/progress.gif)
@@ -244,15 +245,14 @@
 
 
 #### Version update instructions
-- v1.0.0  更新于2016/2/10          作用于投资界下载更新进度条，学习自定义控件
-- v1.1.1  更新于2016/8/12          针对圆环进度条，添加自定义attr属性
-- v1.1.2  更新于2017/3/10          针对圆环进度条添加设置倒计时总时间，start和stop方法
-- v1.1.3  更新于2017/5/27          针对设置进度的方法，增加校验，不能小于0或者大于100
-- v1.2.5  更新于2018年8月24日       添加了直线百分比进度条，针对部分方法添加注解
-- v1.2.6  更新于2018年11月30日      添加了详细的注释
-- v1.2.7  更新于2018/12/3          更新targetSdkVersion版本是27
-- 关于直线百分比进度条参考了代码家NumberProgressBar项目：https://github.com/daimajia/NumberProgressBar
-
+- v1.0.0 update was used in 2016-2-10 for the investment community to download the update progress bar. Learn the custom control
+- v1.1.1 update on 2016-8-12 for the ring progress bar, Add a custom attr attribute
+- v1.1.2 update on 2017-3-10 to add a countdown total time for the loop progress bar, Start and stop methods
+- v1.1.3 update on 2017-5-27 for setting progress methods, adding checksum, Cannot be less than 0 or greater than 100
+- v1.2.5 update on Aug. 24, 2018 with a straight line percentage progress bar, Add annotations to some methods
+- v1.2.6 update added a detailed comment on November 30, 2018
+- v1.2.7 update updated on 2018-12-3 targetSdkVersion version 27
+- about The straight-line percentage progress bar refers to the coders NumberProgressBar project: https://github.com/daimajia/NumberProgressBar
 
 
 ####  About blog Summary links

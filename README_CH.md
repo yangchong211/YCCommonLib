@@ -33,8 +33,9 @@
 
 
 #### 0.3 关于中英文文档
-- [Chinese中文文档]()
-- [English英文文档]()
+- [Chinese中文文档](https://github.com/yangchong211/YCProgress/blob/master/README_CH.md)
+- [English英文文档](https://github.com/yangchong211/YCProgress/blob/master/README.md)
+
 
 #### 04.案例演示
 - ![image](https://github.com/yangchong211/YCProgress/blob/master/image/progress.gif)
