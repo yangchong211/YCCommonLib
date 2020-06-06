@@ -34,6 +34,12 @@
         android:layout_marginTop="10dp"
         android:text="3.直线百分比进度条自定义控件"/>
 
-
+    <Button
+        android:id="@+id/btn_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+        android:layout_marginTop="10dp"
+        android:text="4.自定义道具进度条"/>
 
 </LinearLayout>

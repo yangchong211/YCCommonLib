@@ -61,4 +61,21 @@
             <enum name="invisible" value="1"/>
         </attr>
     </declare-styleable>
+
+
+    <declare-styleable name="CarlProgressbar">
+        <!-- 进度条当前进度 -->
+        <attr name="carl_progress_current" format="integer"/>
+        <!-- 进度条最大进度，默认100，需要开发者自己设置 -->
+        <attr name="carl_progress_max" format="integer"/>
+        <!-- 未到达进度条颜色 -->
+        <attr name="carl_progress_unreached_color" format="color"/>
+        <!-- 到达进度条颜色 -->
+        <attr name="carl_progress_reached_color" format="color"/>
+        <!-- 到达进度条高度 -->
+        <attr name="carl_progress_reached_bar_height" format="dimension"/>
+        <!-- 未到达进度条高度 -->
+        <attr name="carl_progress_unreached_bar_height" format="dimension"/>
+    </declare-styleable>
+
 </resources>
