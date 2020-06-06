@@ -20,7 +20,7 @@
         android:id="@+id/pb_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         app:carl_progress_max="100"
         app:carl_progress_reached_bar_height="3dp"
         app:carl_progress_unreached_bar_height="3dp"
@@ -32,7 +32,7 @@
         android:id="@+id/pb_3"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         app:carl_progress_unreached_bar_height="3dp"
         app:carl_progress_reached_color="@color/colorPrimary"
         app:carl_progress_unreached_color="@color/gray3"/>
@@ -42,7 +42,7 @@
         android:id="@+id/pb_4"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         app:carl_progress_unreached_bar_height="3dp"
         app:carl_progress_reached_color="@color/colorPrimary"
         app:carl_progress_unreached_color="@color/gray3"/>

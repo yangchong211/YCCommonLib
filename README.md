@@ -25,7 +25,7 @@
     ```
 - Then, add the library to your module build.gradle 
     ```
-    compile 'cn.yc:YCProgressLib:1.2.6'
+    compile 'cn.yc:YCProgressLib:1.3.0'
     ```
 
 #### 0.2 function declaration

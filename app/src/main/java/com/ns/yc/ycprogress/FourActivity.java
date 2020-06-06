@@ -39,6 +39,12 @@ public class FourActivity extends AppCompatActivity {
         mPb3.setUnreachedBarHeight(10);
         mPb3.setProgress(300);
 
+
+        View testView4 = LayoutInflater.from(this).inflate(R.layout.layout_carl, null);
+        mPb4.setCustomView(testView4);
+        mPb4.setReachedBarHeight(10);
+        mPb4.setUnreachedBarHeight(10);
+        mPb4.setMax(100);
         mPb4.setProgress(57);
     }
 
