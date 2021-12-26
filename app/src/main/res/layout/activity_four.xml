@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
-    <com.ns.yc.ycprogresslib.CarlProgressbar
+    <com.yc.ycprogresslib.CarlProgressbar
         android:id="@+id/pb_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:carl_progress_unreached_color="@color/gray3"/>
 
 
-    <com.ns.yc.ycprogresslib.CarlProgressbar
+    <com.yc.ycprogresslib.CarlProgressbar
         android:id="@+id/pb_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:carl_progress_unreached_color="@color/gray3"/>
 
 
-    <com.ns.yc.ycprogresslib.CarlProgressbar
+    <com.yc.ycprogresslib.CarlProgressbar
         android:id="@+id/pb_3"
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -38,7 +38,7 @@
         app:carl_progress_unreached_color="@color/gray3"/>
 
 
-    <com.ns.yc.ycprogresslib.CarlProgressbar
+    <com.yc.ycprogresslib.CarlProgressbar
         android:id="@+id/pb_4"
         android:layout_width="match_parent"
         android:layout_height="20dp"

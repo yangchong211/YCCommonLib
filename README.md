@@ -65,7 +65,7 @@
 - In the layout
     ```
     //You can also set the attr property in the layout
-    <com.ns.yc.ycprogresslib.CircleProgressbar
+    <com.yc.circleprogresslib.CircleProgressbar
         android:id="@+id/pb_1"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -106,12 +106,12 @@
 #### 2.2 Straight line percentage progress ba
 - In the layout
     ```
-    <com.ns.yc.ycprogresslib.NumberProgressbar
+    <com.yc.ycprogresslib.NumberProgressbar
         android:id="@+id/bar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     
-    <com.ns.yc.ycprogresslib.NumberProgressbar
+    <com.yc.ycprogresslib.NumberProgressbar
         android:id="@+id/bar2"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -164,7 +164,7 @@
 #### 2.3 Percentage progress bar for imitation antivirus type
 - In the layout
     ```
-    <com.ns.yc.ycprogresslib.RingProgressBar
+    <com.yc.ycprogresslib.RingProgressBar
         android:id="@+id/bar_percent"
         android:layout_width="100dp"
         android:layout_height="100dp"/>

@@ -67,7 +67,7 @@
 - 在布局中
     ```
     //也可以设置布局中的attr属性
-    <com.ns.yc.ycprogresslib.CircleProgressbar
+    <com.yc.circleprogresslib.CircleProgressbar
         android:id="@+id/pb_1"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -108,12 +108,12 @@
 #### 2.2 直线百分比进度条
 - 在布局中
     ```
-    <com.ns.yc.ycprogresslib.NumberProgressbar
+    <com.yc.ycprogresslib.NumberProgressbar
         android:id="@+id/bar1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     
-    <com.ns.yc.ycprogresslib.NumberProgressbar
+    <com.yc.ycprogresslib.NumberProgressbar
         android:id="@+id/bar2"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -166,7 +166,7 @@
 #### 2.3 仿杀毒类型百分比进度条
 - 布局代码
     ```
-    <com.ns.yc.ycprogresslib.RingProgressBar
+    <com.yc.ycprogresslib.RingProgressBar
         android:id="@+id/bar_percent"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
