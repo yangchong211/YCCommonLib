@@ -25,7 +25,8 @@
     ```
 - 然后，将库添加到模块中 build.gradle
     ```
-    compile 'cn.yc:YCProgressLib:1.3.0'
+    implementation 'com.github.yangchong211.YCProgress:BaseProgressLib:1.2.8'
+    implementation 'com.github.yangchong211.YCProgress:CircleProgressLib:1.2.8'
     ```
 
 #### 0.2 功能说明
