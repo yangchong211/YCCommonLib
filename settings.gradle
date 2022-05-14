@@ -1,2 +1,3 @@
-include ':app', ':BaseProgressLib'
-include ':CircleProgressLib'
+include ':app'
+include ':BaseClassLib'
+include ':ComponentLib'
