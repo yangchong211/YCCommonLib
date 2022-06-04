@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.yc.apploglib.config.AppLogConfig;
 import com.yc.apploglib.config.AppLogFactory;
+import com.yc.store.config.CacheConfig;
+import com.yc.store.config.CacheInitHelper;
 import com.yc.toolutils.file.AppFileUtils;
 
 public class App extends Application {
@@ -12,6 +14,28 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initLog();
+        initCacheConfig();
+    }
+
+    private void initCacheConfig() {
+        CacheConfig.Builder builder = CacheConfig.Companion.newBuilder();
+        //设置是否是debug模式
+        CacheConfig cacheConfig = builder.debuggable(BuildConfig.DEBUG)
+                //设置外部存储根目录
+                .extraLogDir(null)
+                //设置lru缓存最大值
+                .maxCacheSize(100)
+                //内部存储根目录
+                .logDir(null)
+                //创建
+                .build();
+        CacheInitHelper.INSTANCE.init(this,cacheConfig);
+        //最简单的初始化
+        //CacheInitHelper.INSTANCE.init(CacheConfig.Companion.newBuilder().build());
+    }
+
+    private void initLog() {
         String ycLogPath = AppFileUtils.getCacheFilePath(this, "ycLog");
         AppLogConfig config = new AppLogConfig.Builder()
                 //设置日志tag总的标签

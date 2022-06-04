@@ -27,47 +27,41 @@ import java.io.File;
  */
 public final class AppLogFactory {
 
-    public final static LogDispatcher S_LOG_DISPATCHER = new LogDispatcher();
+    public final static LogDispatcher sLogDispatcher = new LogDispatcher();
     private static AppLogConfig appLogConfig;
 
-    /**
-     * 初始化日志配置
-     * @param config    配置
-     */
     public static void init(@NonNull AppLogConfig config) {
         appLogConfig = config;
         if (config.isEnableDbgLog()) {
-            S_LOG_DISPATCHER.addPrinter(new LogcatPrinterImpl());
+            sLogDispatcher.addPrinter(new LogcatPrinterImpl());
         }
         if (config.isWriteFile()){
             File file;
             if (TextUtils.isEmpty(config.getFilePath())){
-                //如果外部日志文件地址为空，则默认是：
-                //
                 String log = AppFileUtils.getCacheFilePath(AppToolUtils.getApp(), "ycLog");
                 file = new File(log);
             } else {
                 file = new File(config.getFilePath());
             }
-            S_LOG_DISPATCHER.addPrinter(new FilePrinterImpl(file));
+            sLogDispatcher.addPrinter(new FilePrinterImpl(file));
         }
-        S_LOG_DISPATCHER.setMinLogLevel(config.getMinLogLevel());
+        sLogDispatcher.setMinLogLevel(config.getMinLogLevel());
     }
 
     public static InterLogger getLogger(String tag) {
-        return new DefaultLoggerImpl(tag, S_LOG_DISPATCHER);
+        return new DefaultLoggerImpl(tag, sLogDispatcher);
     }
 
     public static boolean addPrinter(@NonNull AbsPrinter printer) {
-        return S_LOG_DISPATCHER.addPrinter(printer);
+        return sLogDispatcher.addPrinter(printer);
     }
 
     public static void removePrinter(@NonNull AbsPrinter printer) {
-        S_LOG_DISPATCHER.removePrinter(printer);
+        sLogDispatcher.removePrinter(printer);
     }
 
     public static boolean hasPrinter(@NonNull String printerName) {
-        return S_LOG_DISPATCHER.hasPrinter(printerName);
+        return sLogDispatcher.hasPrinter(printerName);
     }
 
     public static void enableLogcatPrinter() {
@@ -82,9 +76,9 @@ public final class AppLogFactory {
     }
 
     public static void enableLogcatPrinter(int logLevel) {
-        if (!S_LOG_DISPATCHER.hasPrinter(LogcatPrinterImpl.PRINTER_NAME)) {
-            S_LOG_DISPATCHER.addPrinter(new LogcatPrinterImpl());
-            S_LOG_DISPATCHER.setMinLogLevel(logLevel);
+        if (!sLogDispatcher.hasPrinter(LogcatPrinterImpl.PRINTER_NAME)) {
+            sLogDispatcher.addPrinter(new LogcatPrinterImpl());
+            sLogDispatcher.setMinLogLevel(logLevel);
         }
     }
 }

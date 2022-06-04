@@ -3,14 +3,27 @@ package com.yc.store.sp
 import android.content.Context
 import android.content.SharedPreferences
 import com.yc.store.ICacheable
-import com.yc.store.StoreToolHelper
+import com.yc.store.mmkv.MmkvCacheImpl
+import com.yc.toolutils.AppToolUtils
 
-class SpCacheImpl : ICacheable {
+class SpCacheImpl(builder: Builder) : ICacheable {
 
     private var sp: SharedPreferences? = null
 
     init {
-        sp = StoreToolHelper.app?.getSharedPreferences("sp", Context.MODE_PRIVATE)
+        sp = AppToolUtils.getApp()?.getSharedPreferences(builder.fileName, Context.MODE_PRIVATE)
+    }
+
+    class Builder {
+        var fileName: String? = null
+        fun setFileId(name: String): Builder {
+            fileName = name
+            return this
+        }
+
+        fun build(): SpCacheImpl {
+            return SpCacheImpl(this)
+        }
     }
 
     override fun saveInt(key: String, value: Int) {
@@ -27,6 +40,14 @@ class SpCacheImpl : ICacheable {
 
     override fun readFloat(key: String, default: Float): Float {
         return sp?.getFloat(key, default) ?: 0f
+    }
+
+    override fun saveDouble(key: String, value: Double) {
+        sp?.edit()?.putFloat(key, value.toFloat())?.apply()
+    }
+
+    override fun readDouble(key: String, default: Double): Double {
+        return sp?.getFloat(key, default.toFloat())?.toDouble() ?: 0.0
     }
 
     override fun saveLong(key: String, value: Long) {

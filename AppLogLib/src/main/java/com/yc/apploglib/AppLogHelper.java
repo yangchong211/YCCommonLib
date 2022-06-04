@@ -17,99 +17,123 @@ public final class AppLogHelper {
     /**
      * Verbose
      */
+    public static void v(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.v(tag, message.toString());
+    }
+
     public static void v(String format, Object... args) {
         v(AppLogFactory.getAppLogConfig().getTag(), format, args);
     }
 
     public static void v(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.v(tag, format, args);
+        AppLogFactory.sLogDispatcher.v(tag, format, args);
     }
 
     public static void v(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.v(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.v(tag, format, tr, args);
     }
 
     /**
      * Debug
      */
+    public static void d(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.d(tag, message.toString());
+    }
+
     public static void d(String format, Object... args) {
         d(AppLogFactory.getAppLogConfig().getTag(), format, args);
     }
 
     public static void d(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.d(tag, format, args);
+        AppLogFactory.sLogDispatcher.d(tag, format, args);
     }
 
     public static void d(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.d(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.d(tag, format, tr, args);
     }
 
     /**
      * INFO.
      */
+    public static void i(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.i(tag, message.toString());
+    }
+
     public static void i(String format, Object... args) {
         i(AppLogFactory.getAppLogConfig().getTag(), format, args);
     }
 
     public static void i(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.i(tag, format, args);
+        AppLogFactory.sLogDispatcher.i(tag, format, args);
     }
 
     public static void i(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.i(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.i(tag, format, tr, args);
     }
 
     /**
      * WARN.
      */
+    public static void w(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.w(tag, message.toString());
+    }
+
     public static void w(String format, Object... args) {
         w(AppLogFactory.getAppLogConfig().getTag(), format, args);
     }
 
     public static void w(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.w(tag, format, args);
+        AppLogFactory.sLogDispatcher.w(tag, format, args);
     }
 
     public static void w(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.w(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.w(tag, format, tr, args);
     }
 
     public static void w(String tag, Throwable tr) {
-        AppLogFactory.S_LOG_DISPATCHER.w(tag, tr);
+        AppLogFactory.sLogDispatcher.w(tag, tr);
     }
 
     /**
      * ERROR.
      */
+    public static void e(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.e(tag, message.toString());
+    }
+
     public static void e(String format, Object... args) {
         e(AppLogFactory.getAppLogConfig().getTag(), format, args);
     }
 
     public static void e(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.e(tag, format, args);
+        AppLogFactory.sLogDispatcher.e(tag, format, args);
     }
 
     public static void e(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.e(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.e(tag, format, tr, args);
     }
 
     public static void e(String tag, Throwable tr) {
-        AppLogFactory.S_LOG_DISPATCHER.e(tag, tr);
+        AppLogFactory.sLogDispatcher.e(tag, tr);
     }
 
     /**
      * ASSERT
      */
+    public static void wtf(String tag, Object message) {
+        AppLogFactory.sLogDispatcher.wtf(tag, message.toString());
+    }
+
     public static void wtf(String tag, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.wtf(tag, format, args);
+        AppLogFactory.sLogDispatcher.wtf(tag, format, args);
     }
 
     public static void wtf(String tag, Throwable tr, String format, Object... args) {
-        AppLogFactory.S_LOG_DISPATCHER.wtf(tag, format, tr, args);
+        AppLogFactory.sLogDispatcher.wtf(tag, format, tr, args);
     }
 
     public static void wtf(String tag, Throwable tr) {
-        AppLogFactory.S_LOG_DISPATCHER.wtf(tag, tr);
+        AppLogFactory.sLogDispatcher.wtf(tag, tr);
     }
 }
 

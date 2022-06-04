@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -36,6 +37,10 @@ public final class AppFileUtils {
      * files-->存放一般文件
      * lib-->存放App依赖的so库 是软链接，指向/data/app/ 某个子目录下
      * shared_prefs-->存放SharedPreferences 文件
+     *
+     * 内部存储，举个例子：
+     * file:data/user/0/包名/files
+     * cache:/data/user/0/包名/cache
      */
     public static String getCachePath(Context context){
         File cacheDir = context.getCacheDir();
@@ -45,6 +50,11 @@ public final class AppFileUtils {
         return null;
     }
 
+    /**
+     * code_cache-->存放运行时代码优化等产生的缓存
+     * @param context       上下文
+     * @return              路径
+     */
     public static String getCodeCachePath(Context context){
         File cacheDir = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -56,6 +66,11 @@ public final class AppFileUtils {
         return null;
     }
 
+    /**
+     * files-->存放一般文件
+     * @param context       上下文
+     * @return              路径
+     */
     public static String getFilesPath(Context context){
         File filesDir = context.getFilesDir();
         if (filesDir!=null && filesDir.exists()){
@@ -69,9 +84,13 @@ public final class AppFileUtils {
     /**
      * 机身外部存储，/storage/emulated/0/
      * App外部私有目录
-     * /sdcard/Android/data/com.yc.helper
+     * /sdcard/Android/data/包名
      * cache-->存放缓存文件
      * files-->存放一般文件
+     *
+     * 外部存储根目录，举个例子
+     * files:/storage/emulated/0/Android/data/包名/files
+     * cache:/storage/emulated/0/Android/data/包名/cache
      */
     public static String getExternalCachePath(Context context){
         File cacheDir = context.getExternalCacheDir();
@@ -81,6 +100,12 @@ public final class AppFileUtils {
         return null;
     }
 
+    /**
+     * 获取外部存储根目录的files文件路径
+     * files:/storage/emulated/0/Android/data/包名/files
+     * @param context   上下文
+     * @return          路径
+     */
     public static String getExternalFilePath(Context context){
         File filesDir = context.getExternalFilesDir(null);
         if (filesDir!=null && filesDir.exists()){
@@ -88,6 +113,8 @@ public final class AppFileUtils {
         }
         return null;
     }
+
+    /*------------------------------------------------------------------------------------*/
 
     /**
      * 机身外部存储，/storage/emulated/0/
@@ -145,7 +172,7 @@ public final class AppFileUtils {
     }
 
     /**
-     * 获取app缓存路径
+     * 获取app缓存路径。优先使用外部存储空间
      * SDCard/Android/data/<application package>/cache
      * data/data/<application package>/cache
      *
@@ -469,6 +496,75 @@ public final class AppFileUtils {
      */
     public static boolean createOrExistsDir(final File file) {
         return file != null && (file.exists() ? file.isDirectory() : file.mkdirs());
+    }
+
+    /***
+     * 获取应用缓存大小
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    public static String getCacheSize(File file) throws Exception {
+        return getFormatSize(getFolderSize(file));
+    }
+
+
+    // 获取文件
+    //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
+    //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
+    public static long getFolderSize(File file) throws Exception {
+        long size = 0;
+        try {
+            File[] fileList = file.listFiles();
+            for (int i = 0; i < fileList.length; i++) {
+                // 如果下面还有文件
+                if (fileList[i].isDirectory()) {
+                    size = size + getFolderSize(fileList[i]);
+                } else {
+                    size = size + fileList[i].length();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
+
+    /**
+     * 格式化单位
+     * @param size
+     * @return
+     */
+    public static String getFormatSize(double size) {
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "Byte";
+        }
+
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+            return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "KB";
+        }
+
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+            return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "MB";
+        }
+
+        double teraBytes = gigaByte / 1024;
+        if (teraBytes < 1) {
+            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+            return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "GB";
+        }
+        BigDecimal result4 = new BigDecimal(teraBytes);
+        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+                + "TB";
     }
 
 

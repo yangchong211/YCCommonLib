@@ -47,14 +47,10 @@ public class FilePrinterImpl extends AbsPrinter {
     /**
      * File Thread handler.
      */
-    private final DelayInitializer<Handler> mHandler = new DelayInitializer<>(
-            new DelayInitializer.Creator<Handler>() {
-        @Override
-        public Handler create() {
-            HandlerThread thread = new HandlerThread("FileLogThread");
-            thread.start();
-            return new Handler(thread.getLooper());
-        }
+    private final DelayInitializer<Handler> mHandler = new DelayInitializer<>(() -> {
+        HandlerThread thread = new HandlerThread("CommonFileLogThread");
+        thread.start();
+        return new Handler(thread.getLooper());
     });
 
     private PrintWriter mWriter;

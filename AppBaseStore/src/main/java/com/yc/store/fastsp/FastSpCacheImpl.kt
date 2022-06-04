@@ -2,16 +2,27 @@ package com.yc.store.fastsp
 
 import com.yc.store.ICacheable
 import com.yc.store.fastsp.sp.FastSharedPreferences
+import com.yc.store.sp.SpCacheImpl
 
-class FastSpCacheImpl : ICacheable {
+class FastSpCacheImpl (builder: Builder) : ICacheable {
 
     private var sp: FastSharedPreferences? = null
 
     init {
-        FastSharedPreferences.init(null)
-        sp = FastSharedPreferences.get("fast_sp")
+        sp = FastSharedPreferences.get(builder.fileName)
     }
 
+    class Builder {
+        var fileName: String? = null
+        fun setFileId(name: String): Builder {
+            fileName = name
+            return this
+        }
+
+        fun build(): FastSpCacheImpl {
+            return FastSpCacheImpl(this)
+        }
+    }
 
     override fun saveInt(key: String, value: Int) {
         sp?.edit()?.putInt(key, value)?.apply()
@@ -27,6 +38,14 @@ class FastSpCacheImpl : ICacheable {
 
     override fun readFloat(key: String, default: Float): Float {
         return sp?.getFloat(key, default) ?: 0f
+    }
+
+    override fun saveDouble(key: String, value: Double) {
+        sp?.edit()?.putFloat(key, value.toFloat())?.apply()
+    }
+
+    override fun readDouble(key: String, default: Double): Double {
+        return sp?.getFloat(key, default.toFloat())?.toDouble() ?: 0.0
     }
 
     override fun saveLong(key: String, value: Long) {
