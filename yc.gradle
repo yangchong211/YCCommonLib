@@ -16,6 +16,10 @@ ext {
     versionCode = 22
     versionName = "1.8.2"
 
+    //kotlin系列
+    kotlin_version = '1.4.31'
+    kotlinxVersion = '1.0.1'
+
     //AndroidX系列
     appcompatVersion = '1.2.0'
     annotationVersion = '1.2.0'

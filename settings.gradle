@@ -1,3 +1,10 @@
-include ':app'
+include ':CommonBusiness'
 include ':BaseClassLib'
 include ':ComponentLib'
+include ':ToolUtilsLib'
+include ':ActivityManager'
+include ':AppBaseStore'
+include ':AppLogLib'
+include ':AppRestartLib'
+include ':SafeIntentLib'
+

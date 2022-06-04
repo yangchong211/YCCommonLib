@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.yc.applicationlib.BuildConfig;
+import com.yc.baseclasslib.BuildConfig;
 
 import java.util.ArrayList;
 
@@ -17,12 +17,24 @@ import java.util.ArrayList;
  * <pre>
  *     @author yangchong
  *     email  : yangchong211@163.com
+ *     GitHub : https://github.com/yangchong211/YCCommonLib
  *     time   : 2019/5/11
  *     desc   : fragment是否可见
  *     revise : 由于fragment生命周期很复杂
  * </pre>
  */
 public class BaseVisibilityFragment extends Fragment implements OnFragmentVisibilityListener, View.OnAttachStateChangeListener {
+
+    /**
+     * 关于transaction事物
+     * add() 向Activity中添加一个Fragment
+     * remove() 从Activity中移除一个Fragment，如果被移除的Fragment没有添加到回退栈，这个Fragment实例将会被销毁
+     * replace() 使用另一个Fragment替换当前的，实际上就是remove()然后add()的合体
+     * hide() 隐藏当前的Fragment，仅仅是设为不可见，并不会销毁，它只会触发onHiddenChange()方法
+     * show() 显示之前隐藏的Fragment，它只会触发onHiddenChange()方法
+     *
+     * 注意：在add/replace/hide/show以后都要commit其效果才会在屏幕上显示出来
+     */
 
     /**
      * ParentActivity是否可见
