@@ -18,6 +18,8 @@
 
 
 ### 02.组件化建设
+- [image](https://github.com/yangchong211/YCCommonLib/blob/master/ImageAll/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+
 
 
 ### 03.公共组件库依赖
