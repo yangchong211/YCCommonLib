@@ -216,7 +216,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         int data3 = dataCache.readInt("cacheKey3", 0);
         long data4 = dataCache.readLong("cacheKey4", 0);
         String data5 = dataCache.readString("cacheKey5", "");
-        double data6 = dataCache.readDouble("cacheKey5", 0.0);
+        double data6 = dataCache.readDouble("cacheKey6", 0.0);
         AppLogHelper.d("取数据 cacheKey1: ",data1);
         AppLogHelper.d("取数据 cacheKey2: ",data2);
         AppLogHelper.d("取数据 cacheKey3: ",data3);
@@ -231,6 +231,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         fastSpCache.saveInt("spkey3",3);
         fastSpCache.saveLong("spkey4",4);
         fastSpCache.saveString("spkey5","doubi5");
+        fastSpCache.saveDouble("spkey6",5.20);
     }
 
     private void sp4() {
@@ -239,11 +240,13 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         int spkey3 = fastSpCache.readInt("spkey3", 0);
         long spkey4 = fastSpCache.readLong("spkey4", 0);
         String spkey5 = fastSpCache.readString("spkey5", "");
+        double spkey6 = fastSpCache.readDouble("spkey6", 0.0);
         AppLogHelper.d("fastSp取数据 spkey1: ",spkey1);
         AppLogHelper.d("fastSp取数据 spkey2: ",spkey2);
         AppLogHelper.d("fastSp取数据 spkey3: ",spkey3);
         AppLogHelper.d("fastSp取数据 spkey4: ",spkey4);
         AppLogHelper.d("fastSp取数据 spkey5: ",spkey5);
+        AppLogHelper.d("fastSp取数据 spkey6: ",spkey6);
     }
 
     private void mmvk1() {
@@ -252,6 +255,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         mmkvCache.saveInt("spkey3",3);
         mmkvCache.saveLong("spkey4",4);
         mmkvCache.saveString("spkey5","doubi5");
+        mmkvCache.saveDouble("spkey6",5.20);
     }
 
     private void mmvk2() {
@@ -260,11 +264,13 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         int spkey3 = mmkvCache.readInt("spkey3", 0);
         long spkey4 = mmkvCache.readLong("spkey4", 0);
         String spkey5 = mmkvCache.readString("spkey5", "");
+        double spkey6 = mmkvCache.readDouble("spkey6", 0.0);
         AppLogHelper.d("mmkvCache取数据 spkey1: ",spkey1);
         AppLogHelper.d("mmkvCache取数据 spkey2: ",spkey2);
         AppLogHelper.d("mmkvCache取数据 spkey3: ",spkey3);
         AppLogHelper.d("mmkvCache取数据 spkey4: ",spkey4);
         AppLogHelper.d("mmkvCache取数据 spkey5: ",spkey5);
+        AppLogHelper.d("mmkvCache取数据 spkey6: ",spkey6);
     }
 
     private void mmvk3() {
@@ -277,6 +283,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         lruDiskCache.saveInt("spkey3",3);
         lruDiskCache.saveLong("spkey4",4);
         lruDiskCache.saveString("spkey5","doubi5");
+        lruDiskCache.saveDouble("spkey6",5.20);
     }
 
     private void disk2() {
@@ -285,11 +292,13 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         int spkey3 = lruDiskCache.readInt("spkey3", 0);
         long spkey4 = lruDiskCache.readLong("spkey4", 0);
         String spkey5 = lruDiskCache.readString("spkey5", "");
+        double spkey6 = lruDiskCache.readDouble("spkey6", 0.0);
         AppLogHelper.d("disk取数据 spkey1: ",spkey1);
         AppLogHelper.d("disk取数据 spkey2: ",spkey2);
         AppLogHelper.d("disk取数据 spkey3: ",spkey3);
         AppLogHelper.d("disk取数据 spkey4: ",spkey4);
         AppLogHelper.d("disk取数据 spkey5: ",spkey5);
+        AppLogHelper.d("disk取数据 spkey6: ",spkey6);
     }
 
     private void disk3() {
