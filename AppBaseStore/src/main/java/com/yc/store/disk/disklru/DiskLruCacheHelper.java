@@ -120,11 +120,6 @@ public class DiskLruCacheHelper {
             ExceptionReporter.report(
                     "Unable to clear disk cache or disk cache cleared externally-", e);
         } finally {
-            try {
-                getDiskCache().flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             resetDiskCache();
         }
     }
