@@ -11,6 +11,7 @@
 - 09.通用基类封装库
 - 10.反射工具类库
 - 11.Intent封装库
+- 12.基础接口库
 
 
 ### 01.框架公共组件层
@@ -182,6 +183,7 @@
 
 
 ### 07.App重新启动库
+- 背景说明：前项目中切换环境，崩溃重启需要重新启动功能。该库支持多种方式，小巧好用！
 - 第一种方式，开启一个新的服务KillSelfService，用来重启本APP。
     ``` java
     RestartAppHelper.restartApp(this,RestartFactory.SERVICE);
@@ -244,6 +246,15 @@
     //打印intent的tag
     PendingIntentLogger.printTag("intent tag : " , intent)
     ```
+
+
+### 12.基础接口库
+- 背景说明：由于组件化开发中有很多基础组件，由于某些需求，需要统计一些事件，异常上报到平台上，获取控制降级，自定义日志打印等，因此采用接口回调方式实现
+- IEventTrack，event事件接口，一般用于特殊事件上报作用
+- IExceptionTrack，异常事件接口，一般可以用在组件库中catch捕获的时候，上报日志到服务平台操作
+- ILogger，log自定义日志接口，一般用于组件库日志打印，暴露给外部开发者
+- IMonitorToggle，AB测试开关接口，也可以叫降级开关，一般用于组件库某功能降级操作，暴露给开发者设置
+
 
 
 

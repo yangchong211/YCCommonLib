@@ -34,4 +34,5 @@ dependencies {
     implementation project(path: ':ToolUtilsLib')
     //腾讯mmkv库
     implementation "com.tencent:mmkv-static:1.2.7"
+    implementation project(path: ':EventUploadLib')
 }
