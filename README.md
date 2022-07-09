@@ -28,19 +28,27 @@
 - 关于依赖库如下所示，可以根据需求选择性使用：
     ``` java
     //base基类
-    implementation 'com.github.yangchong211.YCCommonLib:BaseClassLib:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:BaseClassLib:1.3.3'
     //工具类utils
-    implementation 'com.github.yangchong211.YCCommonLib:ToolUtilsLib:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:ToolUtilsLib:1.3.3'
     //activity栈管理
-    implementation 'com.github.yangchong211.YCCommonLib:ActivityManager:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:ActivityManager:1.3.3'
     //通用缓存存储库，支持sp，fastsp，mmkv，lruCache，DiskLruCache等
-    implementation 'com.github.yangchong211.YCCommonLib:AppBaseStore:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:AppBaseStore:1.3.3'
     //通用日志输出库
-    implementation 'com.github.yangchong211.YCCommonLib:AppLogLib:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:AppLogLib:1.3.3'
     //app重启库
-    implementation 'com.github.yangchong211.YCCommonLib:AppRestartLib:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:AppRestartLib:1.3.3'
     //intent内容输出到控制台
-    implementation 'com.github.yangchong211.YCCommonLib:SafeIntentLib:1.3.0'
+    implementation 'com.github.yangchong211.YCCommonLib:SafeIntentLib:1.3.3'
+    //通用组件接口库
+    implementation 'com.github.yangchong211.YCCommonLib:AppCommonInter:1.3.3'
+    //各种广播监听哭
+    implementation 'com.github.yangchong211.YCCommonLib:AppStatusLib:1.3.3'
+    //基建库
+    implementation 'com.github.yangchong211.YCCommonLib:ArchitectureLib:1.3.3'
+    //同上上报库
+    implementation 'com.github.yangchong211.YCCommonLib:EventUploadLib:1.3.3'
     ```
 
 
