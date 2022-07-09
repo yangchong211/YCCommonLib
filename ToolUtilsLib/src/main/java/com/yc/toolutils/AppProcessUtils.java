@@ -351,14 +351,37 @@ public final class AppProcessUtils {
 
 
     /**
+     * 判断某个进程是否在运行中
+     * @param context                           上下文
+     * @param processName                       进程名称
+     * @return
+     */
+    public static boolean isRunningTaskExist(Context context, String processName) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> processList = am.getRunningAppProcesses();
+        if (processList != null) {
+            for (ActivityManager.RunningAppProcessInfo info : processList) {
+                if (info.processName.equals(processName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * 判断是否运行在后台
      * 参考链接：https://www.cnblogs.com/zhujiabin/p/9336663.html
      * 方案一：利用ActivityManager的RunningAppProcessInfo类
      * 方案二：监听Home键点击
      * 方案三：利用ActivityLifecycleCallbacks监听所有activity的生命周期
+     *
+     * 建议使用：https://github.com/yangchong211/YCEfficient
+     *
      * @param context                           上下文
      * @return                                  返回true表示在后台
      */
+    @Deprecated
     public static boolean isRunningInForeground(Context context) {
         if (Build.VERSION.SDK_INT >= 21){
             return LollipopRunningProcessCompat.isRunningInForeground(context);
@@ -372,6 +395,7 @@ public final class AppProcessUtils {
 
         }
 
+        @Deprecated
         public static boolean isRunningInForeground(Context context) {
             try {
                 Class clazz = ActivityManager.RunningAppProcessInfo.class;
@@ -411,18 +435,46 @@ public final class AppProcessUtils {
 
         }
 
+        @Deprecated
         public static boolean isRunningInForeground(Context context) {
             try {
                 ActivityManager am = (ActivityManager)context.getSystemService(
                         Context.ACTIVITY_SERVICE);
+                String packageName = context.getPackageName();
                 List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
                 return null != tasks && !tasks.isEmpty() &&
-                        tasks.get(0).topActivity.getPackageName().equals(context.getPackageName());
+                        tasks.get(0).topActivity.getPackageName().equals(packageName);
             } catch (Exception var3) {
                 return false;
             }
         }
     }
 
+    /**
+     * 判断app是否处于前台
+     * 建议使用：https://github.com/yangchong211/YCEfficient
+     *
+     * @return  true表示前台
+     */
+    @Deprecated
+    public static boolean isAppOnForeground() {
+        ActivityManager activityManager = (ActivityManager) AppToolUtils.getApp()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = AppToolUtils.getApp().getPackageName();
+        //获取Android设备中所有正在运行的App
+        List<ActivityManager.RunningAppProcessInfo> appProcesses =
+                activityManager.getRunningAppProcesses();
+        if (appProcesses == null) {
+            return false;
+        }
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(packageName)
+                    && appProcess.importance ==
+                    ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

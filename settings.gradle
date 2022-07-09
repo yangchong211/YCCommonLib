@@ -8,3 +8,7 @@ include ':AppLogLib'
 include ':AppRestartLib'
 include ':SafeIntentLib'
 
+include ':AppCommonInter'
+include ':AppStatusLib'
+include ':ArchitectureLib'
+include ':EventUploadLib'

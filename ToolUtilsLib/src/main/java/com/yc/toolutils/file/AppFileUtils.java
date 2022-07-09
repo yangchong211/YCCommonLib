@@ -2,6 +2,9 @@ package com.yc.toolutils.file;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -114,19 +117,6 @@ public final class AppFileUtils {
         return null;
     }
 
-    /*------------------------------------------------------------------------------------*/
-
-    /**
-     * 机身外部存储，/storage/emulated/0/
-     * 只要拿到根目录，就可以遍历寻找其它子目录/文件。
-     */
-    public static String getRootFilePath(){
-        File rootDir = Environment.getExternalStorageDirectory();
-        if (rootDir!=null && rootDir.exists()){
-            return rootDir.getAbsolutePath();
-        }
-        return null;
-    }
 
     /*------------------------------------------------------------------------------------*/
 
@@ -180,6 +170,33 @@ public final class AppFileUtils {
      * @return
      */
     public static String getAppCachePath(Context context) {
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            //外部存储可用
+            String externalCachePath = getExternalCachePath(context);
+            if (externalCachePath!=null){
+                cachePath = externalCachePath;
+            } else {
+                cachePath =  getCachePath(context);
+            }
+        } else {
+            //外部存储不可用
+            cachePath = getCachePath(context);
+        }
+        return cachePath;
+    }
+
+
+    /**
+     * 获取app缓存路径。优先使用外部存储空间
+     * SDCard/Android/data/<application package>/file
+     * data/data/<application package>/file
+     *
+     * @param context                       上下文
+     * @return
+     */
+    public static String getAppFilePath(Context context) {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
@@ -512,7 +529,7 @@ public final class AppFileUtils {
     // 获取文件
     //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
     //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
-    public static long getFolderSize(File file) throws Exception {
+    public static long getFolderSize(File file) {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -530,6 +547,18 @@ public final class AppFileUtils {
         return size;
     }
 
+    public static void searchFile(File file, List<File> fileList) {
+        if (file.exists() && file.isDirectory()) {
+            File[] fs = file.listFiles();
+            if (fs != null) {
+                for (File f : fs) {
+                    searchFile(f, fileList);
+                }
+            }
+        } else if (file.exists() && file.isFile()) {
+            fileList.add(file);
+        }
+    }
 
     /**
      * 格式化单位
@@ -567,5 +596,45 @@ public final class AppFileUtils {
                 + "TB";
     }
 
+
+    /**
+     * 将文件大小转化为具体的kb单位
+     *
+     * @param size 大小，字节
+     * @return
+     */
+    public static SpannableString getPrintSizeForSpannable(long size) {
+        SpannableString spannableString;
+        RelativeSizeSpan sizeSpan = new RelativeSizeSpan(0.5f);
+        if (size < 1024) {
+            spannableString = new SpannableString(String.valueOf(size) + "B");
+            spannableString.setSpan(sizeSpan, spannableString.length() - 1, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            size = size / 1024;
+        }
+        if (size < 1024) {
+            spannableString = new SpannableString(String.valueOf(size) + "KB");
+            spannableString.setSpan(sizeSpan, spannableString.length() - 2, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            size = size / 1024;
+        }
+        if (size < 1024) {
+            size = size * 100;
+            String string = String.valueOf((size / 100)) + "."
+                    + String.valueOf((size % 100)) + "MB";
+            spannableString = new SpannableString(string);
+            spannableString.setSpan(sizeSpan, spannableString.length() - 2, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        } else {
+            size = size * 100 / 1024;
+            String string = String.valueOf((size / 100)) + "."
+                    + String.valueOf((size % 100)) + "GB";
+            spannableString = new SpannableString(string);
+            spannableString.setSpan(sizeSpan, spannableString.length() - 2, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return spannableString;
+        }
+    }
 
 }
