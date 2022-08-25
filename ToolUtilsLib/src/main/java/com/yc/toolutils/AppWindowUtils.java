@@ -15,6 +15,8 @@ import android.view.Surface;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.lang.reflect.Method;
+
 
 /**
  * <pre>
@@ -70,7 +72,7 @@ public final class AppWindowUtils {
      * 获取屏幕高度，包括底部导航栏
      */
     public static int getRealScreenHeight(Activity activity) {
-        WindowManager windowManager = activity.getWindowManager();
+        WindowManager windowManager = (WindowManager) AppToolUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -85,7 +87,7 @@ public final class AppWindowUtils {
      * 获取屏幕宽度，不包括右侧导航栏
      */
     public static int getRealScreenWidth(Activity activity) {
-        WindowManager windowManager = activity.getWindowManager();
+        WindowManager windowManager = (WindowManager) AppToolUtils.getApp().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -112,6 +114,41 @@ public final class AppWindowUtils {
      */
     public static int getScreenDensityDpi() {
         return AppToolUtils.getApp().getResources().getDisplayMetrics().densityDpi;
+    }
+
+
+    /**
+     * 获取屏幕尺寸
+     * @return
+     */
+    public static double getScreenInch(Activity activity) {
+        double inch = 0;
+        try {
+            int realWidth = 0, realHeight = 0;
+            WindowManager windowManager = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
+            Display display = windowManager.getDefaultDisplay();
+            DisplayMetrics metrics = new DisplayMetrics();
+            display.getMetrics(metrics);
+            if (Build.VERSION.SDK_INT >= 17) {
+                Point size = new Point();
+                display.getRealSize(size);
+                realWidth = size.x;
+                realHeight = size.y;
+            } else if (Build.VERSION.SDK_INT < 17 && Build.VERSION.SDK_INT >= 14) {
+                Method mGetRawH = Display.class.getMethod("getRawHeight");
+                Method mGetRawW = Display.class.getMethod("getRawWidth");
+                realWidth = (Integer) mGetRawW.invoke(display);
+                realHeight = (Integer) mGetRawH.invoke(display);
+            } else {
+                realWidth = metrics.widthPixels;
+                realHeight = metrics.heightPixels;
+            }
+            inch = AppNumberUtils.formatDouble(Math.sqrt((realWidth / metrics.xdpi) * (realWidth / metrics.xdpi)
+                    + (realHeight / metrics.ydpi) * (realHeight / metrics.ydpi)), 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return inch;
     }
 
     public static boolean copyToClipBoard(String content){

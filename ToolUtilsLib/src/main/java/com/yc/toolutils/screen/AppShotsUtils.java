@@ -11,8 +11,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.yc.toolutils.CompressUtils;
-
 /**
  * <pre>
  *     @author yangchong
@@ -34,8 +32,8 @@ public final class AppShotsUtils {
             return null;
         }
         Bitmap bitmap = activityShot(activity);
-        Bitmap bmp = CompressUtils.compressBitmapByBmp(bitmap, activity);
-        return bmp;
+        //Bitmap bmp = CompressUtils.compressBitmapByBmp(bitmap, activity);
+        return bitmap;
     }
 
     /**

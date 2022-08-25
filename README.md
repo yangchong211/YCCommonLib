@@ -12,6 +12,11 @@
 - 10.反射工具类库
 - 11.Intent封装库
 - 12.基础接口库
+- 13.Fragment周期监听
+- 14.异常&事件&日志上报库
+- 15.LruCache库
+- 16.LruDisk磁盘库
+
 
 
 ### 01.框架公共组件层
@@ -265,5 +270,73 @@
 
 
 
+### 13.Fragment周期监听
+- 如何监听Fragment各个生命周期回调？
+    - FragmentManager#registerFragmentLifecycleCallbacks()注册回调?
+    - 实现LifecycleObserver接口？
+    - 继承BaseFragment？
+- 几种方式优缺点分析
+    - XxxLifecycleCallbacks方式优点：可以统一监听所有Fragment，方便管理；不侵入已有代码，耦合性较低；可以操作第三方Fragment的声明周期。
+    - XxxLifecycleCallbacks方式缺点：仅能在相应周期回调后操作，是这一方法唯一的缺点。
+    - BaseFragment方式：这一方法就是实现一个基类Fragment，在里面实现一些通用的方法，让项目中的fragment都继承它。但是该方法缺点也很明显，由于Java的继承机制只允许一个类拥有唯一父类，所以该方法无法用于第三方框架也使用该方式的场景，并且侵入性强。
+- api调用如下所示，直接拿来用即可
+    ``` java
+    //一般在onCreate的方法中注册
+    FragmentManager.Companion.getInstance().registerActivityLifecycleListener(activity,lifecycleListener);
+    //一般在onDestroy的方法中解绑注册
+    FragmentManager.Companion.getInstance().unregisterActivityLifecycleListener(activity,lifecycleListener);
+    ```
+- 关于fragment生命周期回调，这个FragmentLifecycleListener是一个抽象类，包含了绝大多数常见的方法，可根据自己的需求自由实现
+    ``` java
+    private final FragmentLifecycleListener lifecycleListener = new FragmentLifecycleListener() {
+        @Override
+        public void onFragmentCreated(@NotNull androidx.fragment.app.FragmentManager fm, @NotNull Fragment f, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+            super.onFragmentCreated(fm, f, savedInstanceState);
+        }
+    
+        @Override
+        public void onFragmentDestroyed(@NotNull androidx.fragment.app.FragmentManager fm, @NotNull Fragment f) {
+            super.onFragmentDestroyed(fm, f);
+        }
+    };
+    ```
 
+
+
+### 14.异常&事件&日志上报库
+- 关于事件埋点，异常上报到APM，日志打印到file文件等。这些比较重的逻辑一般写在app壳工程，而想统计一些基础库中的埋点事件，catch异常上报APM，该怎么做？
+- lib封装库尽可能小和功能独立，不建议依赖APM，埋点库等。我想要一个功能库，你却给我一个大礼包库，想想这个是不是太难了。
+- api调用如下所示，直接拿来用即可。下面这些调用可以用在lib库中，特轻量级上报
+    ``` java
+    //上报日志
+    LoggerReporter.report("DiskLruCacheHelper" , "lru disk file path : " + directory.getPath());
+    LoggerReporter.report("DiskLruCacheHelper clear cache");
+    //上报异常
+    ExceptionReporter.report("Unable to get from disk cache", e);
+    ExceptionReporter.report(ioe);
+    //上报event事件，通常用来埋点
+    EventReporter.report("initCacheSuccess")
+    EventReporter.report("initCacheSuccess",map)
+    ```
+- 需要在壳工程代码中，添加具体实现类。代码如下所示：
+    ``` java
+    //LoggerReporter，ExceptionReporter，EventReporter都是类似的
+    public class LoggerReporterImpl extends LoggerReporter {
+        @Override
+        protected void reportLog(String eventName) {
+            
+        }
+    
+        @Override
+        protected void reportLog(String eventName, String message) {
+    
+        }
+    }
+    ```
+- 最后在壳工程中初始化一下。
+    ``` java
+    ExceptionReporter.setExceptionReporter(ExceptionHelperImpl())
+    LoggerReporter.setEventReporter(LoggerReporterImpl())
+    EventReporter.setEventReporter(EventReporterImpl())
+    ```
 
