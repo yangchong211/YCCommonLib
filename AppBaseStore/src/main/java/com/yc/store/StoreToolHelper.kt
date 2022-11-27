@@ -6,11 +6,24 @@ import com.yc.store.lru.LruMemoryCacheImpl
 import com.yc.store.memory.MemoryCacheImpl
 import com.yc.store.mmkv.MmkvCacheImpl
 import com.yc.store.sp.SpCacheImpl
+import com.yc.store.store.DataStoreCacheImpl
 
+/**
+ * <pre>
+ *     @author yangchong
+ *     email  : yangchong211@163.com
+ *     GitHub : https://github.com/yangchong211/YCCommonLib
+ *     time   : 2018/3/12
+ *     desc   : 存储帮助工具类
+ *     revise :
+ *     GitHub: https://github.com/yangchong211
+ * </pre>
+ */
 class StoreToolHelper {
 
     private var sApplication: Application? = null
     private var spCache: BaseDataCache? = null
+    private var storeCache: BaseDataCache? = null
     private var mmkvCache: BaseDataCache? = null
     private var memoryCache: BaseDataCache? = null
     private var lruMemoryCache: BaseDataCache? = null
@@ -62,6 +75,14 @@ class StoreToolHelper {
             spCache?.setCacheImpl(spCacheImpl)
         }
         return spCache as BaseDataCache
+    }
+
+    fun getStoreCache(): BaseDataCache {
+        if (storeCache == null) {
+            storeCache = BaseDataCache()
+            storeCache?.setCacheImpl(DataStoreCacheImpl())
+        }
+        return storeCache as BaseDataCache
     }
 
     fun getMmkvDiskCache(): BaseDataCache{

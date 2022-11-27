@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android'
 //迁移到jitpack
 apply plugin: 'com.github.dcendents.android-maven'
 
-
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     //buildToolsVersion rootProject.ext.android["buildToolsVersion"]

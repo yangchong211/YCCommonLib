@@ -2,6 +2,8 @@ package com.yc.eventuploadlib;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
+
 /**
  * @author yangchong
  * blog  : yangchong211@163.com

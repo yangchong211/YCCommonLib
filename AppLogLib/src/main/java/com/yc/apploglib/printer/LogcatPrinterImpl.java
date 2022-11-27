@@ -1,5 +1,7 @@
 package com.yc.apploglib.printer;
 
+import com.yc.apploglib.printer.AbsPrinter;
+
 /**
  * <pre>
  *     @author yangchong

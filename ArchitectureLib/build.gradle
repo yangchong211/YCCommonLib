@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: rootProject.projectDir.absolutePath + "/yc.gradle"
-apply plugin: 'kotlin-android'
 //迁移到jitpack
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -34,6 +34,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies["appcompat"]
     implementation rootProject.ext.dependencies["annotation"]
+    //轻量级异步线程封装库：https://github.com/yangchong211/YCThreadPool
+    implementation 'com.github.yangchong211.YCThreadPool:EasyExecutor:1.3.8'
 
     // jetpack系列
     //Navigation
@@ -48,6 +50,7 @@ dependencies {
     implementation(rootProject.ext.dependencies["lifecycle"])
     // room 使用kapt，fix RoomDatabase_Impl does not exist
     implementation(rootProject.ext.dependencies["roomRuntime"])
+    implementation project(path: ':ToolUtilsLib')
     //kapt(rootProject.ext.dependencies["roomCompiler"])
     annotationProcessor(rootProject.ext.dependencies["roomCompiler"])
     //WorkManager

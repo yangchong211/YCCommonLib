@@ -1,12 +1,26 @@
+/*
+Copyright 2017 yangchong211（github.com/yangchong211）
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package com.yc.store.config
 
 import android.app.Application
 import android.util.Log
 import com.tencent.mmkv.MMKV
+import com.yc.appfilelib.AppFileUtils
 import com.yc.store.StoreToolHelper
 import com.yc.applrudisk.DiskHelperUtils
-import com.yc.toolutils.AppToolUtils
-import com.yc.toolutils.file.AppFileUtils
 import java.io.File
 
 
@@ -35,14 +49,14 @@ object CacheInitHelper {
         val logFile = config?.logDir
         val extraFile = config?.extraLogDir
         if (logFile == null) {
-            val cacheFiles = AppFileUtils.getCachePath(AppToolUtils.getApp())
+            val cacheFiles = AppFileUtils.getCachePath(context)
             filePath = cacheFiles +  File.separator + "ycCache"
             //路径：/data/user/0/你的包名/cache/ycCache
         } else {
             filePath = logFile
         }
         if (extraFile == null) {
-            val externalCacheFiles = AppFileUtils.getExternalCachePath(AppToolUtils.getApp())
+            val externalCacheFiles = AppFileUtils.getExternalCachePath(context)
             externalFilePath = externalCacheFiles +  File.separator + "ycCache"
             //路径：/storage/emulated/0/Android/data/你的包名/cache/ycCache
         } else {
@@ -104,7 +118,7 @@ object CacheInitHelper {
      */
     fun getMaxLruSize() : Int{
         if (maxLruSize == null){
-            maxLruSize = 100
+            maxLruSize = 10000
         }
         return maxLruSize as Int
     }

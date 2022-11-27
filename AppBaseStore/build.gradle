@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: rootProject.projectDir.absolutePath + "/yc.gradle"
-apply plugin: 'kotlin-android'
 //迁移到jitpack
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -31,10 +31,15 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies["appcompat"]
     implementation rootProject.ext.dependencies["annotation"]
+    implementation rootProject.ext.dependencies["datastore"]
+    implementation rootProject.ext.dependencies["coreKtx"]
+
     implementation project(path: ':ToolUtilsLib')
     implementation project(path: ':EventUploadLib')
     implementation project(path: ':AppLruDisk')
     implementation project(path: ':AppLruCache')
+    implementation project(path: ':ToolFileLib')
     //腾讯mmkv库
     implementation "com.tencent:mmkv-static:1.2.7"
+    implementation project(path: ':AppContextLib')
 }

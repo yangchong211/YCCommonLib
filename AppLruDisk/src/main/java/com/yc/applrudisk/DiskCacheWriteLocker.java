@@ -2,6 +2,8 @@ package com.yc.applrudisk;
 
 
 
+import com.yc.appcontextlib.AppToolUtils;
+
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +25,7 @@ public final class DiskCacheWriteLocker {
     private final Map<String, WriteLock> locks = new HashMap<>();
     private final WriteLockPool writeLockPool = new WriteLockPool();
 
-    void acquire(String safeKey) {
+    public void acquire(String safeKey) {
         WriteLock writeLock;
         synchronized (this) {
             writeLock = locks.get(safeKey);
@@ -36,10 +38,10 @@ public final class DiskCacheWriteLocker {
         writeLock.lock.lock();
     }
 
-    void release(String safeKey) {
+    public void release(String safeKey) {
         WriteLock writeLock;
         synchronized (this) {
-            writeLock = DiskHelperUtils.checkNotNull(locks.get(safeKey));
+            writeLock = AppToolUtils.checkNotNull(locks.get(safeKey));
             if (writeLock.interestedThreads < 1) {
                 throw new IllegalStateException("Cannot release a lock that is not held"
                         + ", safeKey: " + safeKey
@@ -65,6 +67,7 @@ public final class DiskCacheWriteLocker {
         final Lock lock = new ReentrantLock();
         int interestedThreads;
 
+        @Synthetic
         WriteLock() {
         }
     }
@@ -73,6 +76,7 @@ public final class DiskCacheWriteLocker {
         private static final int MAX_POOL_SIZE = 10;
         private final Queue<WriteLock> pool = new ArrayDeque<>();
 
+        @Synthetic
         WriteLockPool() {
         }
 

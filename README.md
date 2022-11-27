@@ -12,97 +12,82 @@
 - 10.反射工具类库
 - 11.Intent封装库
 - 12.基础接口库
-- 13.Fragment周期监听
-- 14.异常&事件&日志上报库
-- 15.LruCache库
-- 16.LruDisk磁盘库
+- 13.异常上报接口库
+- 14.File流读写库
+- 15.加密和解密库
+- 16.Lru内存缓存库
+- 17.Lru磁盘缓存库
 
 
 
 ### 01.框架公共组件层
-- 组件化开发中基础公共库，activity栈管理；fragment周期监听；Lru缓存库；反射库；分区存储；Log日志打印和存储；通用缓存库(支持sp，mmkv，lru，disk，fastsp等多种存储方式切换)；App重启；通用全面的工具类Utils；通用基类fragment，adapter，activity等简单封装；intent内容打印到控制台库；通用基础接口
-
+- 组件化开发中基础公共库，activity栈管理；Log日志；通用缓存库(支持sp，mmkv，lru，disk，fastsp等多种存储方式切换)；App重启；通用全面的工具类Utils；通用基类fragment，adpater，activity等简单封装；intent内容打印到控制台库
 
 
 ### 02.组件化建设
-- 该基础组件库属于下面组件化架构图中：基础组件-工具库
-- [组件化整体架构图](https://github.com/yangchong211/YCCommonLib/blob/master/ImageAll/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
-
 
 
 ### 03.公共组件库依赖
 - 关于依赖库如下所示，可以根据需求选择性使用：
     ``` java
     //base基类
-    implementation 'com.github.yangchong211.YCCommonLib:BaseClassLib:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:BaseClassLib:1.3.0'
     //工具类utils
-    implementation 'com.github.yangchong211.YCCommonLib:ToolUtilsLib:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:ToolUtilsLib:1.3.0'
     //activity栈管理
-    implementation 'com.github.yangchong211.YCCommonLib:ActivityManager:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:ActivityManager:1.3.0'
     //通用缓存存储库，支持sp，fastsp，mmkv，lruCache，DiskLruCache等
-    implementation 'com.github.yangchong211.YCCommonLib:AppBaseStore:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:AppBaseStore:1.3.0'
     //通用日志输出库
-    implementation 'com.github.yangchong211.YCCommonLib:AppLogLib:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:AppLogLib:1.3.0'
     //app重启库
-    implementation 'com.github.yangchong211.YCCommonLib:AppRestartLib:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:AppRestartLib:1.3.0'
     //intent内容输出到控制台
-    implementation 'com.github.yangchong211.YCCommonLib:SafeIntentLib:1.3.5'
-    //通用组件接口库
-    implementation 'com.github.yangchong211.YCCommonLib:AppCommonInter:1.3.5'
-    //各种广播监听哭
-    implementation 'com.github.yangchong211.YCCommonLib:AppStatusLib:1.3.5'
-    //基建库
-    implementation 'com.github.yangchong211.YCCommonLib:ArchitectureLib:1.3.5'
-    //同上上报库
-    implementation 'com.github.yangchong211.YCCommonLib:EventUploadLib:1.3.5'
-    //权限库
-    implementation 'com.github.yangchong211.YCCommonLib:AppPermission:1.3.5'
-    //Lru磁盘缓存库
-    implementation 'com.github.yangchong211.YCCommonLib:AppLruDisk:1.3.5'
-    //Lru磁盘缓存库
-    implementation 'com.github.yangchong211.YCCommonLib:AppLruDisk:1.3.5'
-    //Lru内存缓存库
-    implementation 'com.github.yangchong211.YCCommonLib:AppLruCache:1.3.5'
-    //fragment生命周期监听库
-    implementation 'com.github.yangchong211.YCCommonLib:FragmentManager:1.3.5'
-    //反射工具库
-    implementation 'com.github.yangchong211.YCCommonLib:ReflectionLib:1.3.5'
-    //App启动优化库
-    implementation 'com.github.yangchong211.YCCommonLib:ParallelTaskLib:1.3.5'
+    implementation 'com.github.yangchong211.YCCommonLib:SafeIntentLib:1.3.0'
     ```
 
 
 ### 04.Activity栈管理库
 - 非常好用的activity任务栈管理库，自动化注册。完全解耦合的activity栈管理，拿来即可用，或者栈顶Activity，移除添加，推出某个页面，获取应用注册Activity列表等，可以注册监听某个页面的生命周期，小巧好用。
     ``` java
-    //添加 activity
-    ActivityManager.getInstance().add(this);
-    //移除 activity
-    ActivityManager.getInstance().remove(this);
-    //结束指定的Activity
-    ActivityManager.getInstance().finish(this);
-    //结束所有Activity
-    ActivityManager.getInstance().finishAll();
-    //退出应用程序。先回退到桌面，然后在杀死进程
+    //退出应用程序
     ActivityManager.getInstance().appExist();
-    //这个是监听目标Activity的生命周期变化
-    ActivityManager.getInstance().registerActivityLifecycleListener(
-            CommonActivity.class,new ActivityLifecycleListener(){
-                @Override
-                public void onActivityCreated(@Nullable Activity activity, Bundle savedInstanceState) {
-                    super.onActivityCreated(activity, savedInstanceState);
-                }
-            });
+    //查找指定的Activity
+    Activity commonActivity = ActivityManager.getInstance().get(CommonActivity.class);
+    //判断界面Activity是否存在
+    boolean exist = ActivityManager.getInstance().isExist(CommonActivity.class);
     //移除栈顶的activity
     ActivityManager.getInstance().pop();
+    //结束所有Activity
+    ActivityManager.getInstance().finishAll();
+    //结束指定的Activity
+    ActivityManager.getInstance().finish(CommonActivity.this);
+    //判断activity任务栈是否为空
+    ActivityManager.getInstance().isEmpty();
     //获取栈顶的Activity
     Activity activity = ActivityManager.getInstance().peek();
     //判断activity是否处于栈顶
     ActivityManager.getInstance().isActivityTop(this,"MainActivity");
-    //返回AndroidManifest.xml中注册的所有Activity的class
-    ActivityManager.getInstance().getActivitiesClass(
-            this, AppUtils.getAppPackageName(),null);
+    //添加 activity 入栈
+    ActivityManager.getInstance().add(CommonActivity.this);
+    //移除 activity 出栈
+    ActivityManager.getInstance().remove(CommonActivity.this);
+    //监听某个activity的生命周期，完全解耦合
+    ActivityManager.getInstance().registerActivityLifecycleListener(CommonActivity.class, new ActivityLifecycleListener() {
+        @Override
+        public void onActivityCreated(@Nullable Activity activity, Bundle savedInstanceState) {
+            super.onActivityCreated(activity, savedInstanceState);
+        }
+    
+        @Override
+        public void onActivityStarted(@Nullable Activity activity) {
+            super.onActivityStarted(activity);
+        }
+    });
+    //移除某个activity的生命周期，完全解耦合
+    //ActivityManager.getInstance().registerActivityLifecycleListener(CommonActivity.this,listener);
     ```
+
 
 
 
@@ -211,7 +196,9 @@
 
 
 ### 07.App重新启动库
-- 背景说明：前项目中切换环境，崩溃重启需要重新启动功能。该库支持多种方式，小巧好用！
+- 使用场景说明
+    - 使用到了简单工厂模式，通过工厂类，只要提供一个参数传给工厂，就可以直接得到一个想要的产品对象，并且可以按照接口规范来调用产品对象的所有功能（方法）。
+    - 比如App切换了debug或者release环境，需要进行app重新启动，可以使用该库，小巧好用。一行代码搞定，傻瓜式使用！
 - 第一种方式，开启一个新的服务KillSelfService，用来重启本APP。
     ``` java
     RestartAppHelper.restartApp(this,RestartFactory.SERVICE);
@@ -249,6 +236,14 @@
 
 
 ### 09.通用基类封装库
+- 通用PagerAdapter封装
+    - 方便快速tabLayout+ViewPager。针对页面较少的Fragment选择使用BaseFragmentPagerAdapter，针对页面较多的Fragment选择使用BasePagerStateAdapter。
+- BaseLazyFragment懒加载fragment
+    - 就是等到该页面的UI展示给用户时，再加载该页面的数据(从网络、数据库等)。
+- BaseVisibilityFragment
+    - fragment是否可见封装类，比如之前需求在页面可见时埋点就需要这个。弥补了setUserVisibleHint遇到的bug……
+- ViewPager2封装库
+    - DiffFragmentStateAdapter，可以用作diff操作的适配器；ViewPagerDiffCallback用来做diff计算的工具类
 
 
 ### 10.反射工具类库
@@ -285,42 +280,8 @@
 
 
 
-### 13.Fragment周期监听
-- 如何监听Fragment各个生命周期回调？
-    - FragmentManager#registerFragmentLifecycleCallbacks()注册回调?
-    - 实现LifecycleObserver接口？
-    - 继承BaseFragment？
-- 几种方式优缺点分析
-    - XxxLifecycleCallbacks方式优点：可以统一监听所有Fragment，方便管理；不侵入已有代码，耦合性较低；可以操作第三方Fragment的声明周期。
-    - XxxLifecycleCallbacks方式缺点：仅能在相应周期回调后操作，是这一方法唯一的缺点。
-    - BaseFragment方式：这一方法就是实现一个基类Fragment，在里面实现一些通用的方法，让项目中的fragment都继承它。但是该方法缺点也很明显，由于Java的继承机制只允许一个类拥有唯一父类，所以该方法无法用于第三方框架也使用该方式的场景，并且侵入性强。
-- api调用如下所示，直接拿来用即可
-    ``` java
-    //一般在onCreate的方法中注册
-    FragmentManager.Companion.getInstance().registerActivityLifecycleListener(activity,lifecycleListener);
-    //一般在onDestroy的方法中解绑注册
-    FragmentManager.Companion.getInstance().unregisterActivityLifecycleListener(activity,lifecycleListener);
-    ```
-- 关于fragment生命周期回调，这个FragmentLifecycleListener是一个抽象类，包含了绝大多数常见的方法，可根据自己的需求自由实现
-    ``` java
-    private final FragmentLifecycleListener lifecycleListener = new FragmentLifecycleListener() {
-        @Override
-        public void onFragmentCreated(@NotNull androidx.fragment.app.FragmentManager fm, @NotNull Fragment f, @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-            super.onFragmentCreated(fm, f, savedInstanceState);
-        }
-    
-        @Override
-        public void onFragmentDestroyed(@NotNull androidx.fragment.app.FragmentManager fm, @NotNull Fragment f) {
-            super.onFragmentDestroyed(fm, f);
-        }
-    };
-    ```
-
-
-
-### 14.异常&事件&日志上报库
-- 关于事件埋点，异常上报到APM，日志打印到file文件等。这些比较重的逻辑一般写在app壳工程，而想统计一些基础库中的埋点事件，catch异常上报APM，该怎么做？
-- lib封装库尽可能小和功能独立，不建议依赖APM，埋点库等。我想要一个功能库，你却给我一个大礼包库，想想这个是不是太难了。
+### 13.异常上报接口库
+- 基础库作为一个功能比较独立的lib，总不可能依赖APM组件吧。因此，就采用抽象类隔离！App壳工程继承抽象类，lib库直接调用抽象类。
 - api调用如下所示，直接拿来用即可。下面这些调用可以用在lib库中，特轻量级上报
     ``` java
     //上报日志
@@ -348,10 +309,137 @@
         }
     }
     ```
-- 最后在壳工程中初始化一下。
+
+
+### 14.File流读写库
+#### 14.1 从文件中读数据
+- 从文件中读数据，使用普通字节流或者字符流方式，如下所示
     ``` java
-    ExceptionReporter.setExceptionReporter(ExceptionHelperImpl())
-    LoggerReporter.setEventReporter(LoggerReporterImpl())
-    EventReporter.setEventReporter(EventReporterImpl())
+    //字节流读取file文件，转化成字符串
+    String file2String = FileIoUtils.readFile2String1(fileName);
+    //字符流读取file文件，转化成字符串
+    String file2String = FileIoUtils.readFile2String2(fileName);
     ```
+- 从文件中读数据，使用高效流方式，如下所示
+    ``` java
+    //高效字节流读取file文件，转化成字符串
+    String file2String = BufferIoUtils.readFile2String1(fileName);
+    //高效字符流读取file文件，转化成字符串
+    String file2String = BufferIoUtils.readFile2String2(fileName);
+    ```
+
+
+#### 14.2 将内容写入文件
+- 从文件中读数据，使用普通字节流或者字符流方式，如下所示
+    ``` java
+    //使用字节流，写入字符串内容到文件中
+    FileIoUtils.writeString2File1(content,fileName);
+    //使用字符流，写入字符串内容到文件中
+    FileIoUtils.writeString2File2(content,fileName);
+    ```
+- 从文件中读数据，使用高效流方式，如下所示
+    ``` java
+    //高效字节流写入字符串内容到文件中
+    BufferIoUtils.writeString2File1(content,fileName);
+    //高效字符流写入字符串内容到文件中
+    BufferIoUtils.writeString2File2(content,fileName);
+    ```
+
+
+#### 14.3 文件复制操作
+- 使用字节流&字符流复制
+    ``` java
+    //使用字节流复制文件，根据文件路径拷贝文件。
+    FileIoUtils.copyFile1(fileName,newFileName);
+    //使用字符流复制文件，根据文件路径拷贝文件。
+    FileIoUtils.copyFile2(fileName,newFileName);
+    ```
+- 使用高效流复制
+    ``` java
+    //使用高效字符缓冲流，根据文件路径拷贝文件。
+    BufferIoUtils.copyFile1(fileName,newFileName);
+    //使用高效字节缓冲流，根据文件路径拷贝文件
+    BufferIoUtils.copyFile2(fileName,newFileName);
+    ```
+
+
+#### 14.4 将流对象写入文件
+- 将InputStream流对象写入到本地文件中
+    ``` java
+    //使用字符流读取流数据到新的file文件中
+    FileIoUtils.writeFileFromIS1(is,srcFile);
+    //使用字节流将流数据写到文件中
+    FileIoUtils.writeFileFromIS1(is,fileName);
+    ```
+
+
+
+### 15.加密和解密库
+- 关于MD5加密Api如下所示
+    ``` java
+    //对字符串md5加密
+    String md2 = Md5EncryptUtils.encryptMD5ToString(string);
+    //对字符串md5加密，加盐处理
+    String md3 = Md5EncryptUtils.encryptMD5ToString(string,"doubi");
+    //对字节数据md5加密
+    String md4 = Md5EncryptUtils.encryptMD5ToString(bytes);
+    //对字节数据md5加密，加盐处理
+    String md5 = Md5EncryptUtils.encryptMD5ToString(bytes,"doubi".getBytes());
+    //对文件进行md5加密
+    String md6 = Md5EncryptUtils.encryptMD5File1(txt);
+    //对文件进行md5加密
+    String md7 = Md5EncryptUtils.encryptMD5File2(new File(txt));
+    ```
+- 关于base64加密和解密的Api如下所示
+    ``` java
+    //字符Base64加密
+    String strBase64_2 = Base64Utils.encodeToString(str);
+    //字符Base64解密
+    String strBase64_3 = Base64Utils.decodeToString(strBase64_2);
+    ```
+- 关于DES加密和解密的Api如下所示
+    ``` java
+    //DES加密字符串
+    String encrypt1 = DesEncryptUtils.encrypt(string,password);
+    //DES解密字符串
+    String decrypt1 = DesEncryptUtils.decrypt(encrypt1 , password);
+    //DES加密文件
+    String encryptFile1 = DesEncryptUtils.encryptFile(password, fileName, destFile);
+    //DES解密文件
+    String decryptFile1 = DesEncryptUtils.decryptFile(password, destFile, destFile3);
+    //DES 加密后转为 Base64 编码
+    String encrypt2 = DesEncryptUtils.encrypt(string.getBytes(), password.getBytes());
+    //DES解密字符串 Base64 解码
+    String decrypt2 = DesEncryptUtils.decrypt(encrypt2.getBytes(), password.getBytes());
+    ```
+- 关于AES加密和解密的Api如下所示
+    ``` java
+    //AES加密字符串
+    String encrypt1 = AesEncryptUtils.encrypt(string,password);
+    //AES解密字符串
+    String decrypt1 = AesEncryptUtils.decrypt(encrypt1 , password);
+    ```
+- 关于RC4加密和解密的Api如下所示
+    ``` java
+    //RC4加密
+    String encrypt1 = Rc4EncryptUtils.encryptString(string, secretKey);
+    //RC4解密
+    String decrypt1 = Rc4EncryptUtils.decryptString(encrypt1, secretKey);
+    //RC4加密base64编码数据
+    String encrypt2 = Rc4EncryptUtils.encryptToBase64(bytes1, secretKey);
+    //RC4解密base64解码数据
+    byte[] bytes = Rc4EncryptUtils.decryptFromBase64(encrypt2, secretKey);
+    ```
+
+
+### 16.Lru内存缓存库
+
+
+
+### 17.Lru磁盘缓存库
+
+
+
+
+
 

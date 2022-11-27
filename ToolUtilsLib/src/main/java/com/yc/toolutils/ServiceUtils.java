@@ -2,7 +2,6 @@ package com.yc.toolutils;
 
 import android.app.ActivityManager;
 import android.content.Context;
-
 import java.util.List;
 
 /**
