@@ -1,7 +1,12 @@
 ext {
 
+    isApplication = false  //false:作为Lib组件存在， true:作为application存在，这个不建议改
+    isJetpackApplication = true
+    isOtherApplication = false  //其他模块开关，false:作为Lib组件存在， true:作为application存在
+    isAnimApplication = false
+
     android = [
-            compileSdkVersion: 29,
+            compileSdkVersion: 30,
             buildToolsVersion: "29.0.0",
             minSdkVersion    : 17,
             targetSdkVersion : 29,
@@ -90,6 +95,15 @@ ext {
             kotlinxCoroutinesCore     : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxVersion",
             kotlinxCoroutinesAndroid  : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxVersion",
             kotlinxJdk                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+
+            //network
+            retrofit                  : "com.squareup.retrofit2:retrofit:$retrofitSdkVersion",
+            "retrofit-converter-gson" : "com.squareup.retrofit2:converter-gson:$retrofitSdkVersion",
+            "retrofit-adapter-rxjava2": "com.squareup.retrofit2:adapter-rxjava2:$retrofitSdkVersion",
+            okhttp                    : "com.squareup.okhttp3:okhttp:$okhttpVersion",
+            gson                      : "com.google.code.gson:gson:$gsonVersion",
+            glide                     : "com.github.bumptech.glide:glide:$glideSdkVersion",
+            "glide-compiler"          : "com.github.bumptech.glide:compiler:$glideSdkVersion",
     ]
 
 }

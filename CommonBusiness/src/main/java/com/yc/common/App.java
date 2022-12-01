@@ -3,11 +3,11 @@ package com.yc.common;
 import android.app.Application;
 import android.util.Log;
 
+import com.yc.appfilelib.AppFileUtils;
 import com.yc.apploglib.config.AppLogConfig;
 import com.yc.apploglib.config.AppLogFactory;
 import com.yc.store.config.CacheConfig;
 import com.yc.store.config.CacheInitHelper;
-import com.yc.toolutils.file.AppFileUtils;
 
 public class App extends Application {
 
