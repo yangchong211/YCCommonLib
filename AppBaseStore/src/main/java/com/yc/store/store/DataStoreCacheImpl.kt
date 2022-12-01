@@ -54,8 +54,8 @@ class DataStoreCacheImpl : ICacheable {
         }
     }
 
-    override fun readInt(key: String, defValue: Int): Int {
-        var value = defValue
+    override fun readInt(key: String, default: Int): Int {
+        var value = default
         runBlocking {
             cache.data.first {
                 try{
@@ -77,8 +77,8 @@ class DataStoreCacheImpl : ICacheable {
         }
     }
 
-    override fun readFloat(key: String, defValue: Float): Float {
-        var value = defValue
+    override fun readFloat(key: String, default: Float): Float {
+        var value = default
         runBlocking {
             cache.data.first {
                 try{
@@ -123,8 +123,8 @@ class DataStoreCacheImpl : ICacheable {
         }
     }
 
-    override fun readLong(key: String, defValue: Long): Long {
-        var value = defValue
+    override fun readLong(key: String, default: Long): Long {
+        var value = default
         runBlocking {
             cache.data.first {
                 try{
@@ -146,8 +146,8 @@ class DataStoreCacheImpl : ICacheable {
         }
     }
 
-    override fun readString(key: String, defValue: String): String {
-        var value = defValue
+    override fun readString(key: String, default: String): String {
+        var value = default
         runBlocking {
             cache.data.first {
                 try{
@@ -169,8 +169,8 @@ class DataStoreCacheImpl : ICacheable {
         }
     }
 
-    override fun readBoolean(key: String, defValue: Boolean): Boolean {
-        var value = defValue
+    override fun readBoolean(key: String, default: Boolean): Boolean {
+        var value = default
         runBlocking {
             cache.data.first {
                 try{
