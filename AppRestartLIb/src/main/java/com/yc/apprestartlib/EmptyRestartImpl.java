@@ -16,6 +16,11 @@ import com.yc.toolutils.AppLogUtils;
  * </pre>
  */
 public class EmptyRestartImpl implements IRestartProduct {
+
+    public EmptyRestartImpl(){
+
+    }
+
     @Override
     public void restartApp(Context context) {
         AppLogUtils.w("IRestartApp:", "restart app empty");

@@ -26,6 +26,10 @@ import java.util.List;
  */
 public class ManifestRestartImpl implements IRestartProduct {
 
+    public ManifestRestartImpl(){
+
+    }
+
     @Override
     public void restartApp(Context context) {
         relaunchApp(context,true);

@@ -22,6 +22,10 @@ import com.yc.toolutils.AppLogUtils;
  */
 public class ServiceRestartImpl implements IRestartProduct {
 
+    public ServiceRestartImpl(){
+
+    }
+
     @Override
     public void restartApp(Context context) {
         Intent intent = new Intent(context, KillSelfService.class);

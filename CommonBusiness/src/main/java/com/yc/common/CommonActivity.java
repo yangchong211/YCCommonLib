@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.yc.activitymanager.ActivityLifecycleListener;
+import com.yc.activitymanager.AbsLifecycleListener;
 import com.yc.activitymanager.ActivityManager;
 import com.yc.apploglib.AppLogHelper;
 import com.yc.apploglib.config.AppLogFactory;
@@ -183,7 +183,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         ActivityManager.getInstance().appExist();
         //这个是监听目标Activity的生命周期变化
         ActivityManager.getInstance().registerActivityLifecycleListener(
-                CommonActivity.class,new ActivityLifecycleListener(){
+                CommonActivity.class,new AbsLifecycleListener(){
                     @Override
                     public void onActivityCreated(@Nullable Activity activity, Bundle savedInstanceState) {
                         super.onActivityCreated(activity, savedInstanceState);

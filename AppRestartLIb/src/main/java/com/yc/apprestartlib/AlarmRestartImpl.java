@@ -21,6 +21,10 @@ import com.yc.toolutils.AppLogUtils;
  */
 public class AlarmRestartImpl implements IRestartProduct {
 
+    public AlarmRestartImpl(){
+
+    }
+
     @Override
     public void restartApp(Context context) {
         String packageName = context.getPackageName();

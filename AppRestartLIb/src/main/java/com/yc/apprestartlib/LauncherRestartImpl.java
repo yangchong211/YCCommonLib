@@ -27,6 +27,10 @@ import java.util.List;
  */
 public class LauncherRestartImpl implements IRestartProduct {
 
+    public LauncherRestartImpl(){
+
+    }
+
     @Override
     public void restartApp(Context context) {
         String packageName = context.getPackageName();
