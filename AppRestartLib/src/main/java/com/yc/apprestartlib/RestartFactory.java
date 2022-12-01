@@ -1,7 +1,6 @@
 package com.yc.apprestartlib;
 
 import androidx.annotation.StringDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -28,7 +27,7 @@ public final class RestartFactory {
      * @param type 参数类型
      * @return 具体产品
      */
-    static IRestartProduct create(@RestartType String type) {
+    public static IRestartProduct create(@RestartType String type) {
         switch (type) {
             case ALARM:
                 return new AlarmRestartImpl();

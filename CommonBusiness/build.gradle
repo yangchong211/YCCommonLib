@@ -131,4 +131,5 @@ dependencies {
     implementation project(path: ':PhoneSensor')
     implementation project(path: ':ToolFileLib')
     implementation project(path: ':ZipFileLib')
+    implementation project(path: ':ApplicationLib')
 }

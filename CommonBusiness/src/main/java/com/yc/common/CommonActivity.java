@@ -52,6 +52,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_common_main);
         init();
         initCache();
+        new Test();
     }
 
     private void initCache() {
