@@ -47,9 +47,85 @@
     - SharedPreferences，MMKV，DiskLruCache，SqlLite，DataStore，ACache，Room
 
 
+#### 2.3 基于接口开发
+- 基于接口而非实现编程
+    - 理解其中的“接口”两个字。从本质上来看，“接口”就是一组“协议”或者“约定”，是功能提供者提供给使用者的一个“功能列表”。
+    - 将接口和实现相分离，封装不稳定的实现，暴露稳定的接口。上游系统面向接口而非实现编程，不依赖不稳定的实现细节，这样当实现发生变化的时候，上游系统的代码基本上不需要做改动，以此来降低耦合性，提高扩展性。
+- 定义缓存的通用API接口，这里省略部分代码
+    ``` kotlin
+    interface ICacheable {
+        fun saveXxx(key: String, value: Int)
+        fun readXxx(key: String, default: Int = 0): Int
+        fun removeKey(key: String)
+        fun totalSize(): Long
+        fun clearData()
+    }
+    ```
+
+
+
+
 
 ### 03.Api调用说明
-
+- 通用存储库
+    - 支持二级缓存，LRU缓存，磁盘缓存(可以使用sp，mmkv，store，或者DiskLruCache)。不管你使用那种方式的存储，都是一套通用的api，使用几乎是零成本。
+- 第一步：通用存储库初始化
+    ``` java
+    CacheConfig.Builder builder = CacheConfig.Companion.newBuilder();
+    //设置是否是debug模式
+    CacheConfig cacheConfig = builder.debuggable(BuildConfig.DEBUG)
+            //设置外部存储根目录
+            .extraLogDir(null)
+            //设置lru缓存最大值
+            .maxCacheSize(100)
+            //内部存储根目录
+            .logDir(null)
+            //创建
+            .build();
+    CacheInitHelper.INSTANCE.init(MainApplication.getInstance(),cacheConfig);
+    //最简单的初始化
+    //CacheInitHelper.INSTANCE.init(CacheConfig.Companion.newBuilder().build());
+    ```
+- 第二步：存储数据和获取数据
+    ```
+    //存储数据
+    dataCache.saveBoolean("cacheKey1",true);
+    dataCache.saveFloat("cacheKey2",2.0f);
+    dataCache.saveInt("cacheKey3",3);
+    dataCache.saveLong("cacheKey4",4);
+    dataCache.saveString("cacheKey5","doubi5");
+    dataCache.saveDouble("cacheKey6",5.20);
+    
+    //获取数据
+    boolean data1 = dataCache.readBoolean("cacheKey1", false);
+    float data2 = dataCache.readFloat("cacheKey2", 0);
+    int data3 = dataCache.readInt("cacheKey3", 0);
+    long data4 = dataCache.readLong("cacheKey4", 0);
+    String data5 = dataCache.readString("cacheKey5", "");
+    double data6 = dataCache.readDouble("cacheKey5", 0.0);
+    ```
+- 第三步：一些存储说明
+    - 关于设置磁盘缓存的路径，需要注意一些问题。建议使用该库默认的路径
+    ``` java
+    /**
+     * log路径，通常这个缓存比较私有的内容
+     * 比如sp，mmkv，存储的用户数据
+     * 内部存储根目录，举个例子：
+     * file:data/user/0/包名/files
+     * cache:/data/user/0/包名/cache
+     */
+    val logDir: String?
+    
+    /**
+     * 额外的log路径，通常缓存一些不私密的内存
+     * 比如缓存图片，缓存视频，缓存下载文件，缓存日志等
+     *
+     * 外部存储根目录，举个例子
+     * files:/storage/emulated/0/Android/data/包名/files
+     * cache:/storage/emulated/0/Android/data/包名/cache
+     */
+    val extraLogDir: File?
+    ```
 
 
 ### 04.遇到的坑分析

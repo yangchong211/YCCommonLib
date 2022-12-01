@@ -25,6 +25,8 @@
 
 
 ### 02.组件化建设
+- 按照不同层级架构图如下所示
+    - ![image](https://github.com/yangchong211/YCAppTool/blob/master/Image/02.App%E7%BB%84%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
 
 
 ### 03.公共组件库依赖

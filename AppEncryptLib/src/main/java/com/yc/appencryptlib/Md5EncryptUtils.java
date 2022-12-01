@@ -2,14 +2,12 @@ package com.yc.appencryptlib;
 
 import com.yc.appcontextlib.AppToolUtils;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 /**
  * <pre>
@@ -22,6 +20,7 @@ import java.util.HashMap;
  */
 public final class Md5EncryptUtils {
 
+
     /**
      * 用来将字节转换成16进制表示的字符
      * 如何加强md5安全性
@@ -33,11 +32,15 @@ public final class Md5EncryptUtils {
     private static final char[] HEX_DIGITS_2 =
             {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
+    private Md5EncryptUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
     public static String getMD5(String str) {
         byte[] source = str.getBytes();
         String s = null;
         try {
-            MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(source);
             // MD5 的计算结果是一个 128 位的长整数
             byte[] tmp = md.digest();
