@@ -19,8 +19,7 @@ import com.yc.applrucache.SystemLruCache;
 import com.yc.applrudisk.DiskLruCacheHelper;
 import com.yc.appmediastore.AppFileUriUtils;
 import com.yc.apppermission.PermissionHelper;
-import com.yc.apprestartlib.RestartAppHelper;
-import com.yc.apprestartlib.RestartFactory;
+import com.yc.apprestartlib.RestartManager;
 import com.yc.appscreenlib.AppShotsUtils;
 import com.yc.appstatuslib.AppStatusManager;
 import com.yc.appstatuslib.info.AppBatteryInfo;
@@ -146,7 +145,7 @@ public class Test {
     }
 
     private void test9(Context context){
-        RestartAppHelper.restartApp(context, RestartFactory.SERVICE);
+        RestartManager.getInstance().restartApp(context,RestartManager.LAUNCHER);
     }
 
     private void test10(Activity activity){

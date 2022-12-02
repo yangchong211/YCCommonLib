@@ -15,8 +15,7 @@ import com.yc.activitymanager.ActivityManager;
 import com.yc.apploglib.AppLogHelper;
 import com.yc.apploglib.config.AppLogFactory;
 import com.yc.apploglib.printer.AbsPrinter;
-import com.yc.apprestartlib.RestartAppHelper;
-import com.yc.apprestartlib.RestartFactory;
+import com.yc.apprestartlib.RestartManager;
 import com.yc.intent.log.IntentLogger;
 import com.yc.store.BaseDataCache;
 import com.yc.store.StoreToolHelper;
@@ -120,13 +119,13 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         } else if (id == R.id.btn_disk3) {
             disk3();
         } else if (id == R.id.btn_restart1) {
-            RestartAppHelper.restartApp(this,RestartFactory.SERVICE);
+            RestartManager.getInstance().restartApp(this,RestartManager.SERVICE);
         }else if (id == R.id.btn_restart2) {
-            RestartAppHelper.restartApp(this,RestartFactory.ALARM);
+            RestartManager.getInstance().restartApp(this,RestartManager.ALARM);
         }else if (id == R.id.btn_restart3) {
-            RestartAppHelper.restartApp(this,RestartFactory.LAUNCHER);
+            RestartManager.getInstance().restartApp(this,RestartManager.LAUNCHER);
         }else if (id == R.id.btn_restart4) {
-            RestartAppHelper.restartApp(this,RestartFactory.MANIFEST);
+            RestartManager.getInstance().restartApp(this,RestartManager.MANIFEST);
         }else if (id == R.id.btn_intent) {
             intentLog();
         } else if (id == R.id.btn_4) {
