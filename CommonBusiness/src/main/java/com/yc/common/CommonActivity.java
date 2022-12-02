@@ -119,7 +119,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         } else if (id == R.id.btn_disk3) {
             disk3();
         } else if (id == R.id.btn_restart1) {
-            RestartManager.getInstance().restartApp(this,RestartManager.SERVICE);
+            RestartManager.getInstance().restartApp(this, RestartManager.SERVICE);
         }else if (id == R.id.btn_restart2) {
             RestartManager.getInstance().restartApp(this,RestartManager.ALARM);
         }else if (id == R.id.btn_restart3) {
