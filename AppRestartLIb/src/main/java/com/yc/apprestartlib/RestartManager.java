@@ -4,8 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.StringDef;
 
-import com.yc.activitymanager.ActivityManager;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -46,7 +44,7 @@ public final class RestartManager {
         return sInstance;
     }
 
-    public void restartApp(Context context, @RestartManager.RestartType String type) {
+    public void restartApp(Context context, @RestartType String type) {
         IRestartProduct iRestartApp = create(type);
         iRestartApp.restartApp(context);
     }

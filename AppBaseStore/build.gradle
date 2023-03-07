@@ -33,7 +33,7 @@ dependencies {
     implementation rootProject.ext.dependencies["annotation"]
     implementation rootProject.ext.dependencies["datastore"]
     implementation rootProject.ext.dependencies["coreKtx"]
-
+    implementation 'com.github.yangchong211.YCCommonLib:AppCommonInter:1.4.3'
     implementation project(path: ':ToolUtilsLib')
     implementation project(path: ':EventUploadLib')
     implementation project(path: ':AppLruDisk')
@@ -42,4 +42,5 @@ dependencies {
     //腾讯mmkv库
     implementation "com.tencent:mmkv-static:1.2.7"
     implementation project(path: ':AppContextLib')
+    implementation project(path: ':AppFastSp')
 }

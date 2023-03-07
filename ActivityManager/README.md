@@ -8,6 +8,14 @@
 
 
 ### 01.基础概念
+#### 1.0 业务场景说明
+- 业务场景说明
+    - 对所有的Activity进行栈管理，方便我们对某一个Activity操作或者是对所有的Activity进行操作。还要做到对制定Activity生命周期监听！
+    - 比如：在非四大组件的逻辑中，可以通过全局栈管理获取到栈顶Activity引用上下文
+    - 比如：双击推出App操作，使用栈管理可以finish掉所有Activity，然后在exit推出。
+
+
+
 #### 1.1 掌握基础概念
 - activity任务栈概念
     - Android是通过将之前的activity组件和新被激活的activity组件放入同一个任务栈来实现这个功能的。
@@ -88,7 +96,7 @@
 - 如果想监听某个单独activity的生命周期，该怎么做呢？
     ``` java
     //监听某个activity的生命周期，完全解耦合
-    ActivityManager.getInstance().registerActivityLifecycleListener(CommonActivity.class, new ActivityLifecycleListener() {
+    ActivityManager.getInstance().registerActivityLifecycleListener(CommonActivity.class, new AbsLifecycleListener() {
         @Override
         public void onActivityCreated(@Nullable Activity activity, Bundle savedInstanceState) {
             super.onActivityCreated(activity, savedInstanceState);
@@ -106,6 +114,30 @@
 
 
 ### 04.遇到的坑分析
+
+
+
+### 05.其他问题说明
+#### 5.1 问题思考一下
+- 针对一个App有多个任务栈，如何处理栈的查找逻辑？比如A，B栈，A栈有6个元素，B栈有1个元素
+
+
+#### 5.2 Activity栈设计
+- 栈管理的简单介绍
+    - 一个应用程序通常包含多个Activity。每个Activity在设计时都应该以执行某个用户发起的 action 作为核心目标，并且它能启动其它Activity。 
+    - Task就是多个Activity的集合，用户操作时与Activity进行交互。这些Activity根据启动顺序压入task中，如果pop task 是按照先进后出的顺序pop。
+- Task任务栈的管理
+    - Activity依照顺序压入Task并按照“先进后出”的顺序pop，对Task的管理显得十分的必要。
+    - taskAffinity属性：如果不设置此属性，默认一个应用程序只有一个栈，这个栈以应用包命为单位。task对于Activity来说就好像它的身份证一样，可以告诉所在的task，自己属于这个task中的一员；拥有相同affinity的多个Activity理论同属于一个task，task自身的affinity决定于根Activity的affinity值。
+    - affinity在什么场合应用呢？1.根据affinity重新为Activity选择宿主task；2.启动一个Activity过程中Intent使用了FLAG_ACTIVITY_NEW_TASK标记，根据affinity查找或创建一个新的具有对应affinity的task
+- ActivityTask和Activity栈管理
+    - http://www.lxiaoyu.com/p/324616
+    - https://blog.csdn.net/heng615975867/article/details/108725469
+
+
+
+
+
 
 
 

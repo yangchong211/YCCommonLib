@@ -1,6 +1,9 @@
 package com.yc.store
 
 import android.app.Application
+import com.yc.appcontextlib.AppToolUtils
+import com.yc.store.config.CacheConstants
+import com.yc.store.config.CacheInitHelper
 import com.yc.store.disk.LruDiskCacheImpl
 import com.yc.store.lru.LruMemoryCacheImpl
 import com.yc.store.memory.MemoryCacheImpl
@@ -28,7 +31,7 @@ class StoreToolHelper {
     private var memoryCache: BaseDataCache? = null
     private var lruMemoryCache: BaseDataCache? = null
     private var lruDiskCache: BaseDataCache? = null
-
+    private var fastSpCache: BaseDataCache? = null
 
     companion object {
 
@@ -59,6 +62,8 @@ class StoreToolHelper {
         }
     }
 
+
+
     val app: Application?
         get() = if (sApplication != null) {
             sApplication
@@ -66,21 +71,26 @@ class StoreToolHelper {
             throw NullPointerException("u should init first")
         }
 
+    /**
+     * 获取sp对象
+     */
     fun getSpCache(): BaseDataCache {
         if (spCache == null) {
             spCache = BaseDataCache()
-            val builder = SpCacheImpl.Builder()
-            builder.fileName = "ycSp"
-            val spCacheImpl = builder.build()
-            spCache?.setCacheImpl(spCacheImpl)
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_SP)
+            spCache?.setCacheImpl(cacheImpl)
         }
         return spCache as BaseDataCache
     }
 
+    /**
+     * 获取DataStore单例模式对象
+     */
     fun getStoreCache(): BaseDataCache {
         if (storeCache == null) {
             storeCache = BaseDataCache()
-            storeCache?.setCacheImpl(DataStoreCacheImpl())
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_STORE)
+            storeCache?.setCacheImpl(cacheImpl)
         }
         return storeCache as BaseDataCache
     }
@@ -88,10 +98,8 @@ class StoreToolHelper {
     fun getMmkvDiskCache(): BaseDataCache{
         if (mmkvCache == null) {
             mmkvCache = BaseDataCache()
-            val builder = MmkvCacheImpl.Builder()
-            builder.fileName = "ycMmkv"
-            val diskCacheImpl = builder.build()
-            mmkvCache?.setCacheImpl(diskCacheImpl)
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_MMKV)
+            mmkvCache?.setCacheImpl(cacheImpl)
         }
         return mmkvCache as BaseDataCache
     }
@@ -99,7 +107,8 @@ class StoreToolHelper {
     fun getMemoryCache(): BaseDataCache {
         if (memoryCache == null) {
             memoryCache = BaseDataCache()
-            memoryCache?.setCacheImpl(MemoryCacheImpl())
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_MEMORY)
+            memoryCache?.setCacheImpl(cacheImpl)
         }
         return memoryCache as BaseDataCache
     }
@@ -107,7 +116,8 @@ class StoreToolHelper {
     fun getLruMemoryCache(): BaseDataCache {
         if (lruMemoryCache == null) {
             lruMemoryCache = BaseDataCache()
-            lruMemoryCache?.setCacheImpl(LruMemoryCacheImpl())
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_LRU)
+            lruMemoryCache?.setCacheImpl(cacheImpl)
         }
         return lruMemoryCache as BaseDataCache
     }
@@ -115,9 +125,20 @@ class StoreToolHelper {
     fun getLruDiskCache(): BaseDataCache {
         if (lruDiskCache == null) {
             lruDiskCache = BaseDataCache()
-            lruDiskCache?.setCacheImpl(LruDiskCacheImpl())
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_DISK)
+            lruDiskCache?.setCacheImpl(cacheImpl)
         }
         return lruDiskCache as BaseDataCache
     }
+
+    fun getFastSpCache(): BaseDataCache {
+        if (fastSpCache == null) {
+            fastSpCache = BaseDataCache()
+            val cacheImpl = CacheFactoryUtils.getCacheImpl(CacheConstants.CacheType.TYPE_FAST)
+            fastSpCache?.setCacheImpl(cacheImpl)
+        }
+        return fastSpCache as BaseDataCache
+    }
+
 
 }

@@ -105,6 +105,7 @@ dependencies {
 //    implementation project(path: ':AppBaseStore')
 //    implementation project(path: ':AppLogLib')
     implementation project(path: ':AppRestartLib')
+    implementation project(path: ':AppBaseStore')
 //    implementation project(path: ':SafeIntentLib')
 //    implementation project(path: ':AppCommonInter')
 //    implementation project(path: ':AppStatusLib')

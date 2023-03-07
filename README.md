@@ -17,7 +17,9 @@
 - 15.加密和解密库
 - 16.Lru内存缓存库
 - 17.Lru磁盘缓存库
-
+- 18.来电和去电监听
+- 19.置灰方案实践库
+- 20.状态监听实践库
 
 
 ### 01.框架公共组件层
@@ -147,7 +149,8 @@
 
 
 ### 05.通用存储库
-- 通用存储库，支持二级缓存，LRU缓存，磁盘缓存(可以使用sp，mmkv，或者DiskLruCache)。不管你使用那种方式的存储，都是一套通用的api，使用几乎是零成本。
+- 通用存储库
+    - 支持二级缓存，LRU缓存，磁盘缓存(可以使用sp，mmkv，或者DiskLruCache)。不管你使用那种方式的存储，都是一套通用的api，使用几乎是零成本。
 - 第一步：通用存储库初始化
     ``` java
     CacheConfig.Builder builder = CacheConfig.Companion.newBuilder();
@@ -492,6 +495,148 @@
 
 
 ### 17.Lru磁盘缓存库
+
+
+### 18.来电和去电监听
+- 业务场景说明
+    - 在App进行音视频聊天的时，这个时候来电了，电话接通后，需要关闭音视频聊天。这个时候就需要监听电话来电和去电状态。
+- 监听来电去电能干什么
+    - 第一：能够针对那些特殊的电话进行自动挂断，避免打扰到用户。
+    - 第二：在业务中，针对来电和去电接通后，需要关闭音视频通话。
+- api调用如下所示，直接拿来用即可
+    ``` java
+    PhoneManager.getInstance().setOnPhoneListener(new OnPhoneListener() {
+        @Override
+        public void callIdle() {
+            ToastUtils.showRoundRectToast("挂断");
+        }
+
+        @Override
+        public void callOffHook() {
+            ToastUtils.showRoundRectToast("接听");
+        }
+
+        @Override
+        public void callRunning() {
+            ToastUtils.showRoundRectToast("响铃");
+        }
+    });
+    PhoneManager.getInstance().registerPhoneStateListener(this);
+    ```
+
+
+### 19.置灰方案实践库
+- 当在特殊的某一个日子
+    - 我们会表达我们的悼念，缅怀、纪念之情，APP会在某一日设置成黑灰色。比如清明节这天很多App都设置了符合主题的灰色模式。
+- App置灰目标
+    - 可以设置全局置灰，也可以设置单独的页面置灰，最好是简单化调用封装的API更好。
+- Api调用如下所示
+    ``` java
+    AppGrayHelper.getInstance().setType(1).setGray(true).initGrayApp(this,true);
+    ```
+- 如何实现App全局灰色
+    ```
+    //使用注册ActivityLifecycleCallbacks监听，设置所有activity布局灰色
+    AppGrayHelper.getInstance().setGray(true).initGrayApp(this,true)
+    //使用hook设置全局灰色
+    AppGrayHelper.getInstance().setGray(true).setGray3()
+    ```
+- 如何实现单独页面灰色
+    ```
+    AppGrayHelper.getInstance().setGray1(window)
+    AppGrayHelper.getInstance().setGray2(window.decorView)
+    ```
+- 如何实现Dialog和PopupWindow灰色
+    ```
+    AppGrayHelper.getInstance().setGray(true).setGray2(view)
+    ```
+
+
+
+### 20.状态监听实践库
+- api调用如下所示，直接拿来用即可。可以监听wifi，网络，gps，蓝牙，屏幕亮和灭等。完全解耦合。
+    ``` kotlin
+    AppStatusManager manager = new AppStatusManager.Builder()
+            .context(MainApplication.getInstance())
+            .file(file)
+            .threadSwitchOn(false)
+            .builder();
+    manager.registerAppStatusListener(new BaseStatusListener() {
+        @Override
+        public void wifiStatusChange(boolean isWifiOn) {
+            super.wifiStatusChange(isWifiOn);
+            if (isWifiOn){
+                AppLogUtils.i("app status Wifi 打开");
+            } else {
+                AppLogUtils.i("app status Wifi 关闭");
+            }
+        }
+    
+        @Override
+        public void gpsStatusChange(boolean isGpsOn) {
+            super.gpsStatusChange(isGpsOn);
+            if (isGpsOn){
+                AppLogUtils.i("app status Gps 打开");
+            } else {
+                AppLogUtils.i("app status Gps 关闭");
+            }
+        }
+    
+        @Override
+        public void networkStatusChange(boolean isConnect) {
+            super.networkStatusChange(isConnect);
+            if (isConnect){
+                AppLogUtils.i("app status Network 打开");
+            } else {
+                AppLogUtils.i("app status Network 关闭");
+            }
+        }
+    
+        @Override
+        public void screenStatusChange(boolean isScreenOn) {
+            super.screenStatusChange(isScreenOn);
+            if (isScreenOn){
+                AppLogUtils.i("app status Screen 打开");
+            } else {
+                AppLogUtils.i("app status Screen 关闭");
+            }
+        }
+    
+        @Override
+        public void screenUserPresent() {
+            super.screenUserPresent();
+            AppLogUtils.i("app status Screen 使用了");
+        }
+    
+        @Override
+        public void bluetoothStatusChange(boolean isBluetoothOn) {
+            super.bluetoothStatusChange(isBluetoothOn);
+            if (isBluetoothOn){
+                AppLogUtils.i("app status 蓝牙 打开");
+            } else {
+                AppLogUtils.i("app status 蓝牙 关闭");
+            }
+        }
+    
+        @Override
+        public void batteryStatusChange(AppBatteryInfo batteryInfo) {
+            super.batteryStatusChange(batteryInfo);
+            AppLogUtils.i("app status 电量 " + batteryInfo.toStringInfo());
+        }
+    
+        @Override
+        public void appThreadStatusChange(AppThreadInfo threadInfo) {
+            super.appThreadStatusChange(threadInfo);
+            AppLogUtils.i("app status 所有线程数量 " + threadInfo.getThreadCount());
+            AppLogUtils.i("app status run线程数量 " + threadInfo.getRunningThreadCount().size());
+            AppLogUtils.i("app status wait线程数量 " + threadInfo.getWaitingThreadCount().size());
+            AppLogUtils.i("app status block线程数量 " + threadInfo.getBlockThreadCount().size());
+            AppLogUtils.i("app status timewait线程数量 " + threadInfo.getTimeWaitingThreadCount().size());
+        }
+    });
+    ```
+
+
 
 
 

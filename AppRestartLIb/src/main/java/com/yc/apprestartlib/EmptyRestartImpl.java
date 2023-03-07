@@ -2,7 +2,6 @@ package com.yc.apprestartlib;
 
 import android.content.Context;
 
-import com.yc.apprestartlib.IRestartProduct;
 import com.yc.toolutils.AppLogUtils;
 
 /**

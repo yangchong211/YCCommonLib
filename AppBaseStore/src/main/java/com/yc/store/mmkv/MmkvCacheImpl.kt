@@ -34,8 +34,18 @@ import java.io.File
  */
 class MmkvCacheImpl(builder: Builder) : ICacheable {
 
+    /**
+     * 通过mmkvWithID创建指定路径的文件
+     */
     private var mmkv: MMKV = MMKV.mmkvWithID(builder.fileName) ?: MMKV.defaultMMKV()!!
     private var fileName: String? = builder.fileName
+
+    companion object {
+        private var rootPath: String? = null
+        fun initRootPath(path: String) {
+            rootPath = MMKV.initialize(path)
+        }
+    }
 
     class Builder {
         var fileName: String? = null
@@ -102,13 +112,38 @@ class MmkvCacheImpl(builder: Builder) : ICacheable {
         mmkv.removeValueForKey(key)
     }
 
+    /**
+     * MMKV的主要缺点就在于它不支持getAll
+     * MMKV都是按字节进行存储的，实际写入文件把类型擦除了，这也是MMKV不支持getAll的原因
+     *
+     * 如何让MMKV支持getAll?
+     * 既然MMKV不支持getAll的原因是因为类型被擦除了，那最简单的思路就是加上类型
+     */
+    private fun getAll(): Map<String, Any> {
+        val keys = mmkv.allKeys()
+        val map = mutableMapOf<String, Any>()
+        keys?.forEach {
+            if (it.contains("@")) {
+                val typeList = it.split("@")
+                when (typeList[typeList.size - 1]) {
+                    String::class.simpleName -> map[it] = mmkv.getString(it, "") ?: ""
+                    Int::class.simpleName -> map[it] = mmkv.getInt(it, 0)
+                    Long::class.simpleName -> map[it] = mmkv.getLong(it, 0L)
+                    Float::class.simpleName -> map[it] = mmkv.getFloat(it, 0f)
+                    Boolean::class.simpleName -> map[it] = mmkv.getBoolean(it, false)
+                }
+            }
+        }
+        return map
+    }
+
     override fun totalSize(): Long {
         return mmkv.totalSize()
     }
 
     override fun clearData() {
         fileName?.let {
-            File(CacheInitHelper.getMmkvPath(), it).apply {
+            File(rootPath, it).apply {
                 if (exists()) {
                     Log.d("DiskCacheImpl","before fileSize:" +
                             "${this.length() / 1024}K,path:${this.absolutePath}")
@@ -117,7 +152,7 @@ class MmkvCacheImpl(builder: Builder) : ICacheable {
         }
         mmkv.clearAll()
         fileName?.let {
-            File(CacheInitHelper.getMmkvPath(), it).apply {
+            File(rootPath, it).apply {
                 if (exists()) {
                     Log.d("DiskCacheImpl","after fileSize:" +
                             "${this.length() / 1024}K,path:${this.absolutePath}")
