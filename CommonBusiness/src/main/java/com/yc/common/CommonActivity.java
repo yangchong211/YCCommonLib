@@ -97,7 +97,7 @@ public class CommonActivity extends AppCompatActivity implements View.OnClickLis
         } else if (id == R.id.btn_log2) {
             testLog2();
         } else if (id == R.id.btn_activity) {
-            testActivity();
+            //testActivity();
         }  else if (id == R.id.btn_sp1) {
             sp1();
         }  else if (id == R.id.btn_sp2) {

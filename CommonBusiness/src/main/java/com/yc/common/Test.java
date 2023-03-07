@@ -89,7 +89,7 @@ public class Test {
     private void test4(Context context){
         String string = "yangchong";
         //对字符串md5加密
-        String md1 = Md5EncryptUtils.getMD5(string);
+        String md1 = Md5EncryptUtils.getMd5(string);
         AppLogUtils.d("md5计算字符串1: " + md1);
         //对字符串md5加密
         String md2 = Md5EncryptUtils.encryptMD5ToString(string);
