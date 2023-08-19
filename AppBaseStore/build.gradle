@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 apply from: rootProject.projectDir.absolutePath + "/yc.gradle"
+apply plugin: 'kotlin-android'
 //迁移到jitpack
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -35,7 +35,7 @@ dependencies {
     implementation rootProject.ext.dependencies["coreKtx"]
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation(rootProject.ext.dependencies["gson"])
-    implementation 'com.github.yangchong211.YCCommonLib:AppCommonInter:1.4.3'
+
     implementation project(path: ':ToolUtilsLib')
     implementation project(path: ':EventUploadLib')
     implementation project(path: ':AppLruDisk')
@@ -44,5 +44,7 @@ dependencies {
     //腾讯mmkv库
     implementation "com.tencent:mmkv-static:1.2.7"
     implementation project(path: ':AppContextLib')
+    //通用组件接口库
+    implementation 'com.github.yangchong211.YCCommonLib:AppCommonInter:1.4.4'
     implementation project(path: ':AppFastSp')
 }

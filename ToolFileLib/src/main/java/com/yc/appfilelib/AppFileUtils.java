@@ -86,6 +86,39 @@ public final class AppFileUtils {
         return null;
     }
 
+
+    /**
+     * 目录地址
+     * data/data/<application package>/cache/
+     */
+    public static String getCacheFilePath(Context context , String name) {
+        String path = getCachePath(context) + File.separator + name;
+        File file = new File(path);
+        if (!file.exists()) {
+            //创建一个File对象所对应的目录，成功返回true，否则false。且File对象必须为路径而不是文件。
+            //创建多级目录，创建路径中所有不存在的目录
+            file.mkdirs();
+        }
+        return path;
+    }
+
+    /**
+     * 目录地址
+     * data/data/<application package>/files/
+     */
+    public static String getFilesFilePath(Context context , String name) {
+        String path = getFilesPath(context) + File.separator + name;
+        File file = new File(path);
+        if (!file.exists()) {
+            //创建一个File对象所对应的目录，成功返回true，否则false。且File对象必须为路径而不是文件。
+            //创建多级目录，创建路径中所有不存在的目录
+            file.mkdirs();
+        }
+        return path;
+    }
+
+    /*------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------------*/
     /*------------------------------------------------------------------------------------*/
 
     /**
@@ -122,38 +155,6 @@ public final class AppFileUtils {
     }
 
 
-    /*------------------------------------------------------------------------------------*/
-
-    /**
-     * 目录地址
-     * data/data/<application package>/cache/
-     */
-    public static String getCacheFilePath(Context context , String name) {
-        String path = getCachePath(context) + File.separator + name;
-        File file = new File(path);
-        if (!file.exists()) {
-            //创建一个File对象所对应的目录，成功返回true，否则false。且File对象必须为路径而不是文件。
-            //创建多级目录，创建路径中所有不存在的目录
-            file.mkdirs();
-        }
-        return path;
-    }
-
-    /**
-     * 目录地址
-     * data/data/<application package>/files/
-     */
-    public static String getFilesFilePath(Context context , String name) {
-        String path = getFilesPath(context) + File.separator + name;
-        File file = new File(path);
-        if (!file.exists()) {
-            //创建一个File对象所对应的目录，成功返回true，否则false。且File对象必须为路径而不是文件。
-            //创建多级目录，创建路径中所有不存在的目录
-            file.mkdirs();
-        }
-        return path;
-    }
-
     /**
      * 外部存储根目录，举个例子
      * cache:/storage/emulated/0/Android/data/包名/cache
@@ -166,6 +167,7 @@ public final class AppFileUtils {
         }
         return path;
     }
+
 
     /**
      * 外部存储根目录，举个例子
@@ -181,6 +183,11 @@ public final class AppFileUtils {
         }
         return path;
     }
+
+
+    /*------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------------------*/
 
     /**
      * 获取分享路径地址
@@ -413,6 +420,32 @@ public final class AppFileUtils {
         } else if (file.exists() && file.isFile()) {
             fileList.add(file);
         }
+    }
+
+    /**
+     * 获取文件个数或者大小
+     *
+     * @param file     路径
+     * @param isNumber 是否是获取个数个数
+     * @return 结果
+     */
+    private long getFileLength(File file, boolean isNumber) {
+        if (file == null) {
+            return -1;
+        }
+        long size = 0;
+        if (!file.isDirectory()) {
+            if (isNumber) {
+                size = 1;
+            } else {
+                size = file.length();
+            }
+        } else {
+            for (File f : file.listFiles()) {
+                size += getFileLength(f, isNumber);
+            }
+        }
+        return size;
     }
 
 }

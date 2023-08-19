@@ -1,40 +1,56 @@
-include ':CommonBusiness'
-include ':BaseClassLib'
-include ':ComponentLib'
-include ':ToolUtilsLib'
-include ':ActivityManager'
-include ':AppBaseStore'
-include ':AppLogLib'
-include ':AppRestartLib'
-include ':SafeIntentLib'
-include ':AppCommonInter'
-include ':AppStatusLib'
-include ':ArchitectureLib'
-include ':EventUploadLib'
-include ':AppLruDisk'
-include ':AppCompress'
-include ':AppLruCache'
-include ':AppPermission'
-include ':FragmentManager'
-include ':ToolMemoryLib'
-include ':ReflectionLib'
-include ':ParallelTaskLib'
-include ':AppContextLib'
-include ':AppEncryptLib'
-include ':AppHandlerLib'
-include ':ApplicationLib'
-include ':AppMediaStore'
-include ':AppScreenLib'
-include ':AppWiFiLib'
-include ':BaseVpAdapter'
-include ':DataCloneLib'
-include ':DownloadHelper'
-include ':FileIoHelper'
-include ':ImageToolLib'
-include ':NetWorkLib'
-include ':PhoneSensor'
-include ':ToolFileLib'
-include ':ZipFileLib'
-include ':AppFastSp'
-include ':AppCallStatus'
-include ':AppGrayLib'
+/* +++++++++ 框架公共组件层 +++++++++ */
+include ':AppStatusLib', ':ToolUtilsLib', ':FragmentManager', ':AppCompress',
+        ':ApplicationLib', ':ParallelTaskLib', ':AppBaseStore',
+        ':BaseClassLib', ':ReflectionLib', ':AppLogLib', ':AppRestartLib', ':SafeIntentLib',
+        ':ArchitectureLib', ':ActivityManager', ':ToolFileLib', ':EventUploadLib',
+        ':AppCommonInter', ':ToolMemoryLib', ':AppPermission', ':PhoneSensor',
+        ':AppLruDisk', ':AppLruCache', ':DownloadHelper', ':AppEncryptLib',
+        ':AppMediaStore',  ':AppScreenLib', ':BaseVpAdapter', ':ImageToolLib',
+        ':AppHandlerLib', ':FileIoHelper', ':ZipFileLib', ':NetWorkLib', ':AppContextLib',
+        ':AppWiFiLib', ':UriAndUrlLib', ':AppGrayLib', ':AppCallStatus', ':AppFastSp',
+        ':ZipFileLib', ':AppClickHelper', ':DataCloneLib', ':NetReceiver',
+        ':NetSettingLib'
+project(':AppStatusLib').projectDir = new File('AppStatusLib')
+project(':ToolUtilsLib').projectDir = new File('ToolUtilsLib')
+project(':ApplicationLib').projectDir = new File('ApplicationLib')
+project(':ParallelTaskLib').projectDir = new File('ParallelTaskLib')
+project(':AppBaseStore').projectDir = new File('AppBaseStore')
+project(':BaseClassLib').projectDir = new File('BaseClassLib')
+project(':ReflectionLib').projectDir = new File('ReflectionLib')
+project(':AppLogLib').projectDir = new File('AppLogLib')
+project(':AppRestartLib').projectDir = new File('AppRestartLib')
+project(':SafeIntentLib').projectDir = new File('SafeIntentLib')
+project(':ArchitectureLib').projectDir = new File('ArchitectureLib')
+project(':ActivityManager').projectDir = new File('ActivityManager')
+project(':FragmentManager').projectDir = new File('FragmentManager')
+project(':ToolFileLib').projectDir = new File('ToolFileLib')
+project(':EventUploadLib').projectDir = new File('EventUploadLib')
+project(':AppCommonInter').projectDir = new File('AppCommonInter')
+project(':ToolMemoryLib').projectDir = new File('ToolMemoryLib')
+project(':AppPermission').projectDir = new File('AppPermission')
+project(':AppCompress').projectDir = new File('AppCompress')
+project(':PhoneSensor').projectDir = new File('PhoneSensor')
+project(':AppLruDisk').projectDir = new File('AppLruDisk')
+project(':AppLruCache').projectDir = new File('AppLruCache')
+project(':DownloadHelper').projectDir = new File('DownloadHelper')
+project(':AppEncryptLib').projectDir = new File('AppEncryptLib')
+project(':AppMediaStore').projectDir = new File('AppMediaStore')
+project(':AppScreenLib').projectDir = new File('AppScreenLib')
+project(':BaseVpAdapter').projectDir = new File('BaseVpAdapter')
+project(':ImageToolLib').projectDir = new File('ImageToolLib')
+project(':AppHandlerLib').projectDir = new File('AppHandlerLib')
+project(':FileIoHelper').projectDir = new File('FileIoHelper')
+project(':ZipFileLib').projectDir = new File('ZipFileLib')
+project(':NetWorkLib').projectDir = new File('NetWorkLib')
+project(':AppContextLib').projectDir = new File('AppContextLib')
+project(':AppWiFiLib').projectDir = new File('AppWiFiLib')
+project(':UriAndUrlLib').projectDir = new File('UriAndUrlLib')
+project(':AppGrayLib').projectDir = new File('AppGrayLib')
+project(':AppCallStatus').projectDir = new File('AppCallStatus')
+project(':AppFastSp').projectDir = new File('AppFastSp')
+project(':ZipFileLib').projectDir = new File('ZipFileLib')
+//project(':SmEncryptLib').projectDir = new File('SmEncryptLib')
+project(':AppClickHelper').projectDir = new File('AppClickHelper')
+project(':DataCloneLib').projectDir = new File('DataCloneLib')
+project(':NetReceiver').projectDir = new File('NetReceiver')
+project(':NetSettingLib').projectDir = new File('NetSettingLib')

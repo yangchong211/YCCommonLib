@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import com.yc.applicationlib.IApplicationHelper;
 import com.yc.toolutils.AppLogUtils;
 import com.yc.toolutils.BuildConfig;
 
@@ -17,7 +18,7 @@ import com.yc.toolutils.BuildConfig;
  *     revise:
  * </pre>
  */
-public abstract class BaseApplicationHelper implements IApplicationHelper {
+public class BaseApplicationHelper implements IApplicationHelper {
 
     private final static String TAG = "BaseApplicationHelper";
 
@@ -25,13 +26,6 @@ public abstract class BaseApplicationHelper implements IApplicationHelper {
 
     public BaseApplicationHelper(Application application) {
         this.mApplication = application;
-    }
-
-    @Override
-    public void attachBaseContext(Context base) {
-        if (BuildConfig.DEBUG){
-            AppLogUtils.d(TAG,"attachBaseContext");
-        }
     }
 
     @Override

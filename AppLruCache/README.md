@@ -195,4 +195,10 @@
 
 
 
+#### 参考博客
+- Android 内存缓存框架 LruCache 的实现原理，手写试试？
+    - https://zhuanlan.zhihu.com/p/588898832
+
+
+
 

@@ -53,7 +53,7 @@ class AppBatteryInfo {
             batteryInfo.level = level
             batteryInfo.scale = scale
             batteryInfo.temperature = temperature
-            batteryInfo.technology = technology.toString()
+            batteryInfo.technology = technology?:""
             batteryInfo.voltage = voltage
             batteryInfo.plugged = getPlugged(plugged)
             val dateFormat = SimpleDateFormat(

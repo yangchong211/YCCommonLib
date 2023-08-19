@@ -2,12 +2,14 @@ package com.yc.appencryptlib;
 
 import com.yc.appcontextlib.AppToolUtils;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 /**
  * <pre>

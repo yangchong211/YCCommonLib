@@ -3,27 +3,44 @@
 - 01.框架公共组件层
 - 02.组件化建设
 - 03.公共组件库依赖
-- 04.Activity栈管理库
-- 05.通用存储库
-- 06.Log日志打印库
-- 07.App重新启动库
-- 08.通用工具类库
-- 09.通用基类封装库
-- 10.反射工具类库
-- 11.Intent封装库
-- 12.基础接口库
-- 13.异常上报接口库
-- 14.File流读写库
-- 15.加密和解密库
-- 16.Lru内存缓存库
-- 17.Lru磁盘缓存库
-- 18.来电和去电监听
-- 19.置灰方案实践库
-- 20.状态监听实践库
+- 04.Activity栈管理库[ActivityManager]()
+- 05.通用存储库[AppBaseStore]()
+- 06.Log日志打印库[AppLogLib]()
+- 07.App重新启动库[AppRestartLib]()
+- 08.通用工具类库[ToolUtilsLib]()
+- 09.通用基类封装库[BaseClassLib]()
+- 10.反射工具类库[ReflectionLib]()
+- 11.Intent封装库[SafeIntentLib]()
+- 12.基础接口库[AppCommonInter]()
+- 13.异常上报接口库[EventUploadLib]()
+- 14.File流读写库[FileIoHelper]()
+- 15.加密和解密库[AppEncryptLib]()
+- 16.Lru内存缓存库[AppLruCache]()
+- 17.Lru磁盘缓存库[AppLruDisk]()
+- 18.磁盘分区库[AppMediaStore]()
+- 19.来电和去电监听[ActivityManager]()
+- 20.广播监听库[AppStatusLib]()
+- 21.权限申请封装库[AppPermission]()
+- 22.Fragment周期监听[FragmentManager]()
+- 23.App启动优化库[ParallelTaskLib]()
+- 25.屏幕截屏库[AppScreenLib]()
+- 26.内存获取库[ToolMemoryLib]()
+- 27.Wi-Fi工具库[AppWiFiLib]()
+- 28.Vp相关适配器库[BaseVpAdapter]()
+- 30.网络判断库[NetWorkLib]()
+- 31.手机方向监听库[PhoneSensor]()
+- 32.File文件库[ToolFileLib]()
+- 33.Zip压缩库[ZipFileLib]()
+- 34.多次点击判断库[AppClickHelper]()
+
+
+
 
 
 ### 01.框架公共组件层
-- 组件化开发中基础公共库，activity栈管理；Log日志；通用缓存库(支持sp，mmkv，lru，disk，fastsp等多种存储方式切换)；App重启；通用全面的工具类Utils；通用基类fragment，adpater，activity等简单封装；intent内容打印到控制台库
+- 组件化开发中基础公共库
+    - activity栈管理；Log日志；通用缓存库(支持sp，mmkv，lru，disk，fastsp等多种存储方式切换)；App重启；
+    - 通用全面的工具类Utils；通用基类fragment，adpater，activity等简单封装；intent内容打印到控制台库
 
 
 ### 02.组件化建设
@@ -31,9 +48,10 @@
     - ![image](https://github.com/yangchong211/YCAppTool/blob/master/Image/02.App%E7%BB%84%E4%BB%B6%E5%8C%96%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
 
 
+
 ### 03.公共组件库依赖
 - 关于依赖库如下所示，可以根据需求选择性使用：
-    ``` java
+    ```
     //base基类
     implementation 'com.github.yangchong211.YCCommonLib:BaseClassLib:1.4.8'
     implementation 'com.github.yangchong211.YCCommonLib:ComponentLib:1.4.8'
@@ -105,8 +123,9 @@
 
 
 ### 04.Activity栈管理库
-- 非常好用的activity任务栈管理库，自动化注册。完全解耦合的activity栈管理，拿来即可用，或者栈顶Activity，移除添加，推出某个页面，获取应用注册Activity列表等，可以注册监听某个页面的生命周期，小巧好用。
-    ``` java
+- 非常好用的activity任务栈管理库，自动化注册。
+    - 完全解耦合的activity栈管理，拿来即可用，或者栈顶Activity，移除添加，推出某个页面，获取应用注册Activity列表等，可以注册监听某个页面的生命周期，小巧好用。
+    ```
     //退出应用程序
     ActivityManager.getInstance().appExist();
     //查找指定的Activity
@@ -144,76 +163,35 @@
     //移除某个activity的生命周期，完全解耦合
     //ActivityManager.getInstance().registerActivityLifecycleListener(CommonActivity.this,listener);
     ```
-
+- 如何依赖该库
+    ```
+    
+    ```
+- 相关文档连接
+    - [ReadMe]()
 
 
 
 ### 05.通用存储库
-- 通用存储库
-    - 支持二级缓存，LRU缓存，磁盘缓存(可以使用sp，mmkv，或者DiskLruCache)。不管你使用那种方式的存储，都是一套通用的api，使用几乎是零成本。
-- 第一步：通用存储库初始化
-    ``` java
-    CacheConfig.Builder builder = CacheConfig.Companion.newBuilder();
-    //设置是否是debug模式
-    CacheConfig cacheConfig = builder.debuggable(BuildConfig.DEBUG)
-            //设置外部存储根目录
-            .extraLogDir(null)
-            //设置lru缓存最大值
-            .maxCacheSize(100)
-            //内部存储根目录
-            .logDir(null)
-            //创建
-            .build();
-    CacheInitHelper.INSTANCE.init(MainApplication.getInstance(),cacheConfig);
-    //最简单的初始化
-    //CacheInitHelper.INSTANCE.init(CacheConfig.Companion.newBuilder().build());
-    ```
-- 第二步：存储数据和获取数据
-    ```
-    //存储数据
-    dataCache.saveBoolean("cacheKey1",true);
-    dataCache.saveFloat("cacheKey2",2.0f);
-    dataCache.saveInt("cacheKey3",3);
-    dataCache.saveLong("cacheKey4",4);
-    dataCache.saveString("cacheKey5","doubi5");
-    dataCache.saveDouble("cacheKey6",5.20);
-    
-    //获取数据
-    boolean data1 = dataCache.readBoolean("cacheKey1", false);
-    float data2 = dataCache.readFloat("cacheKey2", 0);
-    int data3 = dataCache.readInt("cacheKey3", 0);
-    long data4 = dataCache.readLong("cacheKey4", 0);
-    String data5 = dataCache.readString("cacheKey5", "");
-    double data6 = dataCache.readDouble("cacheKey5", 0.0);
-    ```
-- 第三步：一些存储说明
-    - 关于设置磁盘缓存的路径，需要注意一些问题。建议使用该库默认的路径
-    ``` java
-    /**
-     * log路径，通常这个缓存比较私有的内容
-     * 比如sp，mmkv，存储的用户数据
-     * 内部存储根目录，举个例子：
-     * file:data/user/0/包名/files
-     * cache:/data/user/0/包名/cache
-     */
-    val logDir: String?
-    
-    /**
-     * 额外的log路径，通常缓存一些不私密的内存
-     * 比如缓存图片，缓存视频，缓存下载文件，缓存日志等
-     *
-     * 外部存储根目录，举个例子
-     * files:/storage/emulated/0/Android/data/包名/files
-     * cache:/storage/emulated/0/Android/data/包名/cache
-     */
-    val extraLogDir: File?
-    ```
+- 业务背景：
+    - 项目中有用到sp，mmkv，file，内存缓存，缓存的使用场景有很多，那么能否可以打造一套通用api的缓存方案。
+- 通用缓存方案：
+    - 不管是sp，mmkv，lru，disk，file，内存缓存，都使用同一套api。大大简化了磁盘缓存应用流程……
+- 无缝切换：
+    - 常见一套api+不同接口实现+代理类+工厂模型
+- 方案替代稳定性：
+    - 该库异常上报，容错性，已经暴露外部config配置，打造通用的轮子
+- 内部开源该库：
+    - 作为技术沉淀，当作专项来推动进展。高复用低耦合，便于拓展，可快速移植，解决各个项目使用内存缓存，sp，mmkv，sql，lru，DataStore的凌乱。抽象一套统一的API接口。
+
+
+
 
 
 ### 06.Log日志打印库
 - 通用日志库框架，专用LogCat工具，主要功能全局配置log输出, 个性化设置Tag，可以设置日志打印级别，支持打印复杂对象，可以实现自定义日志接口，支持简化版本将日志写入到文件中。小巧好用！
 - 第一步：初始化操作
-    ``` java
+    ```
     String ycLogPath = AppFileUtils.getCacheFilePath(this, "ycLog");
     AppLogConfig config = new AppLogConfig.Builder()
             //设置日志tag总的标签
@@ -231,7 +209,7 @@
     AppLogFactory.init(config);
     ```
 - 第二步：使用Log日志，十分简单，如下所示
-    ``` java
+    ```
     //自己带有tag标签
     AppLogHelper.d("MainActivity: ","debug log");
     //使用全局tag标签
@@ -258,15 +236,15 @@
     - 使用到了简单工厂模式，通过工厂类，只要提供一个参数传给工厂，就可以直接得到一个想要的产品对象，并且可以按照接口规范来调用产品对象的所有功能（方法）。
     - 比如App切换了debug或者release环境，需要进行app重新启动，可以使用该库，小巧好用。一行代码搞定，傻瓜式使用！
 - 第一种方式，开启一个新的服务KillSelfService，用来重启本APP。
-    ``` java
+    ```
     RestartAppHelper.restartApp(this,RestartFactory.SERVICE);
     ```
 - 第二种方式，使用闹钟延时，使用PendingIntent延迟意图，然后重启app
-    ``` java
+    ```
     RestartAppHelper.restartApp(this,RestartFactory.ALARM);
     ```
 - 第三种方式，检索获取项目中LauncherActivity，然后设置该activity的flag和component启动app
-    ``` java
+    ```
     RestartAppHelper.restartApp(this,RestartFactory.MAINIFEST);
     ```
 
@@ -274,7 +252,7 @@
 ### 08.通用工具类库
 - ToolUtils 是一个 Android 工具库。便于开发人员，快捷高效开发需求。
 - 常用的基本上都有，还包括图片压缩，日历事件，异常上报工具，网络，手机方向监听，防爆力点击等工具类。
-    ``` java
+    ```
     FastClickUtils              防爆力点击，可以自定义设置间距时间
     PerfectClickListener        避免在1秒内出发多次点击
     AppFileUtils                file文件工具类
@@ -309,7 +287,7 @@
 
 ### 11.Intent封装库
 - 通用打印Intent对象内容到log日志栏中，支持普通intent和延迟PendingIntent。超级方便检查，可以打印action，category，data，flags，extras等等
-    ``` java
+    ```
     //打印intent所有的数据
     IntentLogger.print("intent test : ", intent)
     //打印intent中component
@@ -341,7 +319,7 @@
 ### 13.异常上报接口库
 - 基础库作为一个功能比较独立的lib，总不可能依赖APM组件吧。因此，就采用抽象类隔离！App壳工程继承抽象类，lib库直接调用抽象类。
 - api调用如下所示，直接拿来用即可。下面这些调用可以用在lib库中，特轻量级上报
-    ``` java
+    ```
     //上报日志
     LoggerReporter.report("DiskLruCacheHelper" , "lru disk file path : " + directory.getPath());
     LoggerReporter.report("DiskLruCacheHelper clear cache");
@@ -353,7 +331,7 @@
     EventReporter.report("initCacheSuccess",map)
     ```
 - 需要在壳工程代码中，添加具体实现类。代码如下所示：
-    ``` java
+    ```
     //LoggerReporter，ExceptionReporter，EventReporter都是类似的
     public class LoggerReporterImpl extends LoggerReporter {
         @Override
@@ -372,14 +350,14 @@
 ### 14.File流读写库
 #### 14.1 从文件中读数据
 - 从文件中读数据，使用普通字节流或者字符流方式，如下所示
-    ``` java
+    ```
     //字节流读取file文件，转化成字符串
     String file2String = FileIoUtils.readFile2String1(fileName);
     //字符流读取file文件，转化成字符串
     String file2String = FileIoUtils.readFile2String2(fileName);
     ```
 - 从文件中读数据，使用高效流方式，如下所示
-    ``` java
+    ```
     //高效字节流读取file文件，转化成字符串
     String file2String = BufferIoUtils.readFile2String1(fileName);
     //高效字符流读取file文件，转化成字符串
@@ -389,14 +367,14 @@
 
 #### 14.2 将内容写入文件
 - 从文件中读数据，使用普通字节流或者字符流方式，如下所示
-    ``` java
+    ```
     //使用字节流，写入字符串内容到文件中
     FileIoUtils.writeString2File1(content,fileName);
     //使用字符流，写入字符串内容到文件中
     FileIoUtils.writeString2File2(content,fileName);
     ```
 - 从文件中读数据，使用高效流方式，如下所示
-    ``` java
+    ```
     //高效字节流写入字符串内容到文件中
     BufferIoUtils.writeString2File1(content,fileName);
     //高效字符流写入字符串内容到文件中
@@ -406,14 +384,14 @@
 
 #### 14.3 文件复制操作
 - 使用字节流&字符流复制
-    ``` java
+    ```
     //使用字节流复制文件，根据文件路径拷贝文件。
     FileIoUtils.copyFile1(fileName,newFileName);
     //使用字符流复制文件，根据文件路径拷贝文件。
     FileIoUtils.copyFile2(fileName,newFileName);
     ```
 - 使用高效流复制
-    ``` java
+    ```
     //使用高效字符缓冲流，根据文件路径拷贝文件。
     BufferIoUtils.copyFile1(fileName,newFileName);
     //使用高效字节缓冲流，根据文件路径拷贝文件
@@ -423,7 +401,7 @@
 
 #### 14.4 将流对象写入文件
 - 将InputStream流对象写入到本地文件中
-    ``` java
+    ```
     //使用字符流读取流数据到新的file文件中
     FileIoUtils.writeFileFromIS1(is,srcFile);
     //使用字节流将流数据写到文件中
@@ -434,7 +412,7 @@
 
 ### 15.加密和解密库
 - 关于MD5加密Api如下所示
-    ``` java
+    ```
     //对字符串md5加密
     String md2 = Md5EncryptUtils.encryptMD5ToString(string);
     //对字符串md5加密，加盐处理
@@ -449,14 +427,14 @@
     String md7 = Md5EncryptUtils.encryptMD5File2(new File(txt));
     ```
 - 关于base64加密和解密的Api如下所示
-    ``` java
+    ```
     //字符Base64加密
     String strBase64_2 = Base64Utils.encodeToString(str);
     //字符Base64解密
     String strBase64_3 = Base64Utils.decodeToString(strBase64_2);
     ```
 - 关于DES加密和解密的Api如下所示
-    ``` java
+    ```
     //DES加密字符串
     String encrypt1 = DesEncryptUtils.encrypt(string,password);
     //DES解密字符串
@@ -471,14 +449,14 @@
     String decrypt2 = DesEncryptUtils.decrypt(encrypt2.getBytes(), password.getBytes());
     ```
 - 关于AES加密和解密的Api如下所示
-    ``` java
+    ```
     //AES加密字符串
     String encrypt1 = AesEncryptUtils.encrypt(string,password);
     //AES解密字符串
     String decrypt1 = AesEncryptUtils.decrypt(encrypt1 , password);
     ```
 - 关于RC4加密和解密的Api如下所示
-    ``` java
+    ```
     //RC4加密
     String encrypt1 = Rc4EncryptUtils.encryptString(string, secretKey);
     //RC4解密
@@ -491,155 +469,50 @@
 
 
 ### 16.Lru内存缓存库
+- 缓存的大小有限，当缓存被用满时，哪些数据应该被清理出去，哪些数据应该被保留？这就需要缓存淘汰策略来决定。
+    - 常见的策略有三种：先进先出策略 FIFO、最少使用策略 LFU、最近最少使用策略 LRU。
+- 如何度量缓存单元的内存占用？
+    - 缓存系统应该实时记录当前的内存占用量，在添加数据时增加内存记录，在移除或替换数据时减少内存记录，这就涉及 “如何度量缓存单元的内存占用” 的问题。
+- 计数 or 计量，这是个问题。比如说：
+    - 举例 1： 实现图片内存缓存，如何度量一个图片资源的内存占用？
+    - 举例 2： 实现数据模型对象内存缓存，如何度量一个数据模型对象的内存占用？
+    - 举例 3： 实现资源内存预读，如何度量一个资源的内存占用？
+- 将这个问题总结为 2 种情况：
+    - 1、能力复用使用计数： 这类内存缓存场景主要是为了复用对象能力，对象本身持有的数据并不多。而且，再加上引用复用的因素，很难统计对象实际的内存占用。因此，这类内存缓存场景应该使用计数，只统计缓存单元的个数，例如复用数据模型对象，资源预读等；
+    - 2、数据复用使用计量： 这类内存缓存场景主要是为了复用对象持有的数据，数据对内存的影响远远大于对象内存结构对内存的影响，是否度量除了数据外的部分内存对缓存几乎没有影响。因此， 这里内存缓存场景应该使用计量，不计算缓存单元的个数，而是计算缓存单元中主数据字段的内存占用量，例如图片的内存缓存就只记录 Bitmap 的像素数据内存占用。
 
 
 
 ### 17.Lru磁盘缓存库
+- DiskLruCache场景
+    - 用于实现存储设备缓存，即磁盘缓存，它通过将缓存对象写入文件系统从而实现缓存的效果。
 
 
-### 18.来电和去电监听
+
+### 19.来电和去电监听
 - 业务场景说明
     - 在App进行音视频聊天的时，这个时候来电了，电话接通后，需要关闭音视频聊天。这个时候就需要监听电话来电和去电状态。
-- 监听来电去电能干什么
-    - 第一：能够针对那些特殊的电话进行自动挂断，避免打扰到用户。
-    - 第二：在业务中，针对来电和去电接通后，需要关闭音视频通话。
-- api调用如下所示，直接拿来用即可
-    ``` java
-    PhoneManager.getInstance().setOnPhoneListener(new OnPhoneListener() {
-        @Override
-        public void callIdle() {
-            ToastUtils.showRoundRectToast("挂断");
-        }
-
-        @Override
-        public void callOffHook() {
-            ToastUtils.showRoundRectToast("接听");
-        }
-
-        @Override
-        public void callRunning() {
-            ToastUtils.showRoundRectToast("响铃");
-        }
-    });
-    PhoneManager.getInstance().registerPhoneStateListener(this);
+- 如何依赖该库
     ```
-
-
-### 19.置灰方案实践库
-- 当在特殊的某一个日子
-    - 我们会表达我们的悼念，缅怀、纪念之情，APP会在某一日设置成黑灰色。比如清明节这天很多App都设置了符合主题的灰色模式。
-- App置灰目标
-    - 可以设置全局置灰，也可以设置单独的页面置灰，最好是简单化调用封装的API更好。
-- Api调用如下所示
-    ``` java
-    AppGrayHelper.getInstance().setType(1).setGray(true).initGrayApp(this,true);
-    ```
-- 如何实现App全局灰色
-    ```
-    //使用注册ActivityLifecycleCallbacks监听，设置所有activity布局灰色
-    AppGrayHelper.getInstance().setGray(true).initGrayApp(this,true)
-    //使用hook设置全局灰色
-    AppGrayHelper.getInstance().setGray(true).setGray3()
-    ```
-- 如何实现单独页面灰色
-    ```
-    AppGrayHelper.getInstance().setGray1(window)
-    AppGrayHelper.getInstance().setGray2(window.decorView)
-    ```
-- 如何实现Dialog和PopupWindow灰色
-    ```
-    AppGrayHelper.getInstance().setGray(true).setGray2(view)
-    ```
-
-
-
-### 20.状态监听实践库
-- api调用如下所示，直接拿来用即可。可以监听wifi，网络，gps，蓝牙，屏幕亮和灭等。完全解耦合。
-    ``` kotlin
-    AppStatusManager manager = new AppStatusManager.Builder()
-            .context(MainApplication.getInstance())
-            .file(file)
-            .threadSwitchOn(false)
-            .builder();
-    manager.registerAppStatusListener(new BaseStatusListener() {
-        @Override
-        public void wifiStatusChange(boolean isWifiOn) {
-            super.wifiStatusChange(isWifiOn);
-            if (isWifiOn){
-                AppLogUtils.i("app status Wifi 打开");
-            } else {
-                AppLogUtils.i("app status Wifi 关闭");
-            }
-        }
     
-        @Override
-        public void gpsStatusChange(boolean isGpsOn) {
-            super.gpsStatusChange(isGpsOn);
-            if (isGpsOn){
-                AppLogUtils.i("app status Gps 打开");
-            } else {
-                AppLogUtils.i("app status Gps 关闭");
-            }
-        }
-    
-        @Override
-        public void networkStatusChange(boolean isConnect) {
-            super.networkStatusChange(isConnect);
-            if (isConnect){
-                AppLogUtils.i("app status Network 打开");
-            } else {
-                AppLogUtils.i("app status Network 关闭");
-            }
-        }
-    
-        @Override
-        public void screenStatusChange(boolean isScreenOn) {
-            super.screenStatusChange(isScreenOn);
-            if (isScreenOn){
-                AppLogUtils.i("app status Screen 打开");
-            } else {
-                AppLogUtils.i("app status Screen 关闭");
-            }
-        }
-    
-        @Override
-        public void screenUserPresent() {
-            super.screenUserPresent();
-            AppLogUtils.i("app status Screen 使用了");
-        }
-    
-        @Override
-        public void bluetoothStatusChange(boolean isBluetoothOn) {
-            super.bluetoothStatusChange(isBluetoothOn);
-            if (isBluetoothOn){
-                AppLogUtils.i("app status 蓝牙 打开");
-            } else {
-                AppLogUtils.i("app status 蓝牙 关闭");
-            }
-        }
-    
-        @Override
-        public void batteryStatusChange(AppBatteryInfo batteryInfo) {
-            super.batteryStatusChange(batteryInfo);
-            AppLogUtils.i("app status 电量 " + batteryInfo.toStringInfo());
-        }
-    
-        @Override
-        public void appThreadStatusChange(AppThreadInfo threadInfo) {
-            super.appThreadStatusChange(threadInfo);
-            AppLogUtils.i("app status 所有线程数量 " + threadInfo.getThreadCount());
-            AppLogUtils.i("app status run线程数量 " + threadInfo.getRunningThreadCount().size());
-            AppLogUtils.i("app status wait线程数量 " + threadInfo.getWaitingThreadCount().size());
-            AppLogUtils.i("app status block线程数量 " + threadInfo.getBlockThreadCount().size());
-            AppLogUtils.i("app status timewait线程数量 " + threadInfo.getTimeWaitingThreadCount().size());
-        }
-    });
     ```
+- 相关文档连接
+    - [ReadMe]()
+
+
+### 30.网络判断库
+
+
+### 32.File文件库
 
 
 
-
-
-
-
-
+### 34.多次点击判断库
+- 业务场景说明
+    - 经常遇到这样的需求类似进入开发者模式，即多次点击后执行操作。
+- 如何依赖该库
+    ```
+    
+    ```
+- 相关文档连接
+    - [ReadMe]()
